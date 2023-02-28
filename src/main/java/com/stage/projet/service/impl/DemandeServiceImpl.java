@@ -165,7 +165,7 @@ public class DemandeServiceImpl implements DemandeService {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-              headers.setContentDispositionFormData("filename", "demandes.pdf");
+              headers.setContentDispositionFormData("filename", "facturefon.pdf");
             return new ResponseEntity<byte[]>(JasperExportManager.exportReportToPdf(jasperPrint), headers, HttpStatus.OK);
 
         } catch (Exception e) {

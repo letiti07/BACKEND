@@ -18,11 +18,11 @@ public interface FactureFONService {
 
     List<FactureFONDTO> findFactureFonsOfLocation(Integer identifiant);
 
-    public void validerEnInstance(Integer identifiant);
+    public void validerEnInstance(FactureFONDTO factureFONDTO,Integer identifiant);
 
-    public void validerLitigieux(Integer identifiant);
+    public void validerLitigieux(FactureFONDTO factureFONDTO,Integer identifiant);
 
-    public void validerAnnule(Integer identifiant);
+    public void validerAnnule(FactureFONDTO factureFONDTO,Integer identifiant);
 
-    public void validerPaye(Integer identifiant);
+    public void validerPaye(FactureFONDTO factureFONDTO,Integer identifiant);
 }

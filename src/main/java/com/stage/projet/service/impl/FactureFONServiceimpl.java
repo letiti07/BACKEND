@@ -86,7 +86,7 @@ public class FactureFONServiceimpl implements FactureFONService {
         return this.factureFONRepository.findAllByLocationfonId(identifiant).stream().map(FactureFONDTO::toDTO).toList();
     }
 
-    public void validerEnInstance(Integer identifiant) {
+    public void validerEnInstance(FactureFONDTO factureFONDTO,Integer identifiant) {
         Optional<LocationFON> locationfon = this.locationFONRepository.findById(identifiant);
         String etat="en instance";
         locationfon.get().setEtat(etat);
@@ -94,27 +94,56 @@ public class FactureFONServiceimpl implements FactureFONService {
 
     }
 
-    public void validerLitigieux(Integer identifiant) {
-        Optional<LocationFON> locationfon = this.locationFONRepository.findById(identifiant);
+    public void validerLitigieux(FactureFONDTO factureFONDTO,Integer identifiant) {
+        int id=factureFONDTO.getLocationFONDTO().getId();
+        int d1=factureFONDTO.getTvaDTO().getId();
+        log.info(String.valueOf(id));
+        Optional<LocationFON> locationFON = locationFONRepository.findById(id);
+        Optional<Tva> tva = tvaRepository.findById(d1);
+        FactureFON factureFON = FactureFONDTO.toEntity(factureFONDTO);
+        factureFON.setLocationfon(locationFON.get());
+        factureFON.setTva(tva.get());
+
         String etat="litigieux";
-        locationfon.get().setEtat(etat);
-        this.locationFONRepository.save(locationfon.get());
+        factureFON.setId(identifiant);
+        factureFON.setEtat(etat);
+        factureFONRepository.save(factureFON);
 
     }
 
-    public void validerAnnule(Integer identifiant) {
-        Optional<LocationFON> locationfon = this.locationFONRepository.findById(identifiant);
+    public void validerAnnule(FactureFONDTO factureFONDTO,Integer identifiant) {
+
+        int id=factureFONDTO.getLocationFONDTO().getId();
+        int d1=factureFONDTO.getTvaDTO().getId();
+        log.info(String.valueOf(id));
+        Optional<LocationFON> locationFON = locationFONRepository.findById(id);
+        Optional<Tva> tva = tvaRepository.findById(d1);
+        FactureFON factureFON = FactureFONDTO.toEntity(factureFONDTO);
+        factureFON.setLocationfon(locationFON.get());
+        factureFON.setTva(tva.get());
+
         String etat="annulee";
-        locationfon.get().setEtat(etat);
-        this.locationFONRepository.save(locationfon.get());
+        factureFON.setId(identifiant);
+        factureFON.setEtat(etat);
+        factureFONRepository.save(factureFON);
+
 
     }
 
-    public void validerPaye(Integer identifiant) {
-        Optional<LocationFON> locationfon = this.locationFONRepository.findById(identifiant);
+    public void validerPaye(FactureFONDTO factureFONDTO,Integer identifiant) {
+        int id=factureFONDTO.getLocationFONDTO().getId();
+        int d1=factureFONDTO.getTvaDTO().getId();
+        log.info(String.valueOf(id));
+        Optional<LocationFON> locationFON = locationFONRepository.findById(id);
+        Optional<Tva> tva = tvaRepository.findById(d1);
+        FactureFON factureFON = FactureFONDTO.toEntity(factureFONDTO);
+        factureFON.setLocationfon(locationFON.get());
+        factureFON.setTva(tva.get());
+
         String etat="payee";
-        locationfon.get().setEtat(etat);
-        this.locationFONRepository.save(locationfon.get());
+        factureFON.setId(identifiant);
+        factureFON.setEtat(etat);
+        factureFONRepository.save(factureFON);
 
     }
 

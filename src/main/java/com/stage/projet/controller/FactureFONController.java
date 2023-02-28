@@ -74,36 +74,27 @@ public class FactureFONController {
 
     }
 
-    @GetMapping("/validerEnInstance/{id}")
-    public void validerEnInstance(Integer identifiant){
-        if(factureFONService.findById(identifiant) == null) {
-            throw new RessourceNotFoundException();
-        }
-        this.factureFONService.validerEnInstance(identifiant);
+    @PutMapping("/validerEnInstance/{id}")
+    public void validerEnInstance(@RequestBody FactureFONDTO factureFONDTO,@PathVariable("id") Integer identifiant){
+        this.factureFONService.validerEnInstance(factureFONDTO,identifiant);
     }
 
-    @GetMapping("/validerLitigieux/{id}")
-    public void validerLitigieux(Integer identifiant){
-        if(factureFONService.findById(identifiant) == null) {
-            throw new RessourceNotFoundException();
-        }
-        this.factureFONService.validerLitigieux(identifiant);
+    @PutMapping("/validerLitigieux/{id}")
+    public void validerLitigieux(@RequestBody FactureFONDTO factureFONDTO,@PathVariable("id") Integer identifiant){
+
+        this.factureFONService.validerLitigieux(factureFONDTO,identifiant);
     }
 
-    @GetMapping("/validerAnnule/{id}")
-    public void validerAnnule(Integer identifiant){
-        if(factureFONService.findById(identifiant) == null) {
-            throw new RessourceNotFoundException();
-        }
-        this.factureFONService.validerAnnule(identifiant);
+    @PutMapping("/validerAnnule/{id}")
+    public void validerAnnule(@RequestBody FactureFONDTO factureFONDTO,@PathVariable("id") Integer identifiant){
+
+        this.factureFONService.validerAnnule(factureFONDTO,identifiant);
     }
 
-    @GetMapping("/validerPaye/{id}")
-    public void validerPaye(Integer identifiant){
-        if(factureFONService.findById(identifiant) == null) {
-            throw new RessourceNotFoundException();
-        }
-        this.factureFONService.validerPaye(identifiant);
+    @PutMapping("/validerPaye/{id}")
+    public void validerPaye(@RequestBody FactureFONDTO factureFONDTO,@PathVariable("id") Integer identifiant){
+
+        this.factureFONService.validerPaye(factureFONDTO,identifiant);
     }
 
 
