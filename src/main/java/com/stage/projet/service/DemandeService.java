@@ -22,10 +22,9 @@ public interface DemandeService {
 
     List<DemandeDTO> findAllByObjetAndEtat(String objet,String etat);
 
-
-
-
     ResponseEntity<byte[]> exportReport() throws FileNotFoundException, JRException;
+
+     ResponseEntity<byte[]> exportReportFacturefon() throws FileNotFoundException, JRException;
 
 
 }

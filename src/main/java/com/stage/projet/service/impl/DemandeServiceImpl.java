@@ -9,6 +9,7 @@ import com.stage.projet.repository.DemandeRepository;
 import com.stage.projet.repository.DemandeurRepository;
 import com.stage.projet.repository.LocationFONRepository;
 import com.stage.projet.service.DemandeService;
+import com.stage.projet.service.FactureFONService;
 import com.stage.projet.service.LocationFONService;
 import com.sun.tools.jconsole.JConsoleContext;
 import lombok.extern.slf4j.Slf4j;
@@ -35,13 +36,18 @@ public class DemandeServiceImpl implements DemandeService {
     private DemandeRepository demandeRepository;
     private LocationFONRepository locationFONRepository;
 
+    private DemandeService demandeService;
+
+    private FactureFONService factureFONService;
+
     private LocationFONService locationFONService;
 
     public DemandeServiceImpl(DemandeRepository demandeRepository, LocationFONRepository locationFONRepository,
-                              LocationFONService locationFONService) {
+                              LocationFONService locationFONService,FactureFONService factureFONService) {
         this.demandeRepository = demandeRepository;
         this.locationFONRepository = locationFONRepository;
         this.locationFONService=locationFONService;
+        this.factureFONService=factureFONService;
     }
 
     @Override
@@ -143,36 +149,74 @@ public class DemandeServiceImpl implements DemandeService {
 
     }
 
-    
-    public ResponseEntity<byte[]> exportFacturefon(Integer idDemande) throws FileNotFoundException,JRException {
+
+
+    public ResponseEntity<byte[]> exportReportFacturefon() throws FileNotFoundException, JRException {
         try {
-            Demande demmande;
             String path = "C:\\Users\\Fiacre\\Downloads\\uploads";
 
-                Demande demande = this.demandeRepository.findById(idDemande).get();
-                List<LiaisonFON> liaisonFONS = demande.getLocationFON().getLiaisonfons();
-                //load file and compile it
-                File file = ResourceUtils.getFile("classpath:demandes.jrxml");
-                JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(liaisonFONS);
-                Map<String, Object> parameters = new HashMap<>();
-                parameters.put("cree par", "Fiacre");
-                parameters.put("nomdemandeur", demande.getDemandeur().getNom());
-                parameters.put("rccmdemandeur", demande.getDemandeur().getRccm());
-                parameters.put("ifudemandeur", demande.getDemandeur().getIfu());
+            LocationFONDTO locationFONDTO = this.locationFONService.findById(457);
+            FactureFONDTO factureFONDTO = this.factureFONService.findById(460);
+            DemandeDTO demandeDTO = this.locationFONService.DemandeByIdLocationfon(457);
+            DemandeurDTO demandeurDTO = demandeDTO.getDemandeurDTO();
+            List<LiaisonFONDTO> liaisonFONList= locationFONDTO.getLiaisonfons();
+            Double CoutMetreLineaireTotal = this.locationFONService.getPrixTotalMetreLineaire(457,460);
+            Double CoutMetreLineaireTotalHTVA = this.locationFONService.getPrixTotalMetreLineaireHTVA(457);
+
+            log.info(String.valueOf(demandeurDTO));
+            log.info("******************************************************************");
+            log.info(String.valueOf(demandeDTO));
+            log.info("******************************************************************");
+            log.info(String.valueOf(locationFONDTO));
+            log.info("******************************************************************");
+            log.info(liaisonFONList.toString());
+            log.info("******************************************************************");
+            log.info(factureFONDTO.toString());
+            log.info("******************************************************************");
+            log.info(CoutMetreLineaireTotalHTVA.toString());
+            log.info("******************************************************************");
+            log.info(CoutMetreLineaireTotal.toString());
+
+
+            //load file and compile it
+            File file = ResourceUtils.getFile("classpath:facturefon.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(liaisonFONList);
+            Map<String, Object> parameters = new HashMap<>();
+
+            //elements à droite dans l'entete
+            parameters.put("nomDemandeur", demandeurDTO.getNom());
+            parameters.put("bpDemandeur",demandeurDTO.getBoitePostale());
+            parameters.put("emailDemandeur",demandeurDTO.getEmail());
+            parameters.put("telDemandeur",demandeurDTO.getTel());
+            parameters.put("tvaFacture",factureFONDTO.getTvaDTO().getTva());
+          //  parameters.put("periodeDebutLocationfon",locationFONDTO.getPeriodeDebut());
+           // parameters.put("periodeFinLocationfon",locationFONDTO.getPeriodeFin());
+
+            //elements à gauche dans l'entete
+            parameters.put("rccmDemandeur",demandeurDTO.getRccm());
+            parameters.put("ifuDemandeur",demandeurDTO.getIfu());
+
+            //total du cout par metre lineaire
+            parameters.put("coutTotalMetreLineaireHTVA",CoutMetreLineaireTotalHTVA);
+
+            //total du cout par metre lineaire
+            parameters.put("coutTotalMetreLineaire",CoutMetreLineaireTotal);
+
 
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-              headers.setContentDispositionFormData("filename", "facturefon.pdf");
-            return new ResponseEntity<byte[]>(JasperExportManager.exportReportToPdf(jasperPrint), headers, HttpStatus.OK);
+            headers.setContentDispositionFormData("filename", "facture de fibre optique noire.pdf");
 
+
+            return new ResponseEntity<byte[]>(JasperExportManager.exportReportToPdf(jasperPrint), headers, HttpStatus.OK);
         } catch (Exception e) {
             log.info(e.getMessage());
             return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
+
 
 }

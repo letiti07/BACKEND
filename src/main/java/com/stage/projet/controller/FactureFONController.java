@@ -1,27 +1,30 @@
 package com.stage.projet.controller;
 
+import com.lowagie.text.DocumentException;
 import com.stage.projet.dto.FactureFONDTO;
-import com.stage.projet.dto.LiaisonFONDTO;
-import com.stage.projet.dto.TvaDTO;
-import com.stage.projet.exception.RequeteFailed;
 import com.stage.projet.exception.RessourceNotFoundException;
 import com.stage.projet.service.FactureFONService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static com.stage.projet.utils.Constants.ENDPOINT_FACTUREFON;
-import static com.stage.projet.utils.Constants.ENDPOINT_LOCATIONFON;
 
 @Slf4j
 @RestController
 @RequestMapping(ENDPOINT_FACTUREFON)
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FactureFONController {
+
 
     FactureFONService factureFONService;
 

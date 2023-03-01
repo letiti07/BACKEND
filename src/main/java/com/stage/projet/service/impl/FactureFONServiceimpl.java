@@ -3,18 +3,36 @@ package com.stage.projet.service.impl;
 import com.stage.projet.dto.FactureFONDTO;
 import com.stage.projet.dto.LiaisonFONDTO;
 import com.stage.projet.dto.TvaDTO;
+import com.stage.projet.model.Demande;
 import com.stage.projet.model.FactureFON;
 import com.stage.projet.model.LocationFON;
 import com.stage.projet.model.Tva;
+import com.stage.projet.repository.DemandeRepository;
 import com.stage.projet.repository.FactureFONRepository;
+import com.stage.projet.service.DemandeService;
 import com.stage.projet.service.FactureFONService;
+import com.stage.projet.service.LocationFONService;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import com.stage.projet.repository.LocationFONRepository;
 import com.stage.projet.repository.TvaRepository;
+import org.springframework.util.ResourceUtils;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 @Service
@@ -25,9 +43,12 @@ public class FactureFONServiceimpl implements FactureFONService {
 
     LocationFONRepository locationFONRepository;
 
+    DemandeRepository demandeRepository;
+
     TvaRepository tvaRepository;
 
-    public FactureFONServiceimpl(FactureFONRepository factureFONRepository,LocationFONRepository locationFONRepository,TvaRepository tvaRepository) {
+    public FactureFONServiceimpl(FactureFONRepository factureFONRepository,LocationFONRepository locationFONRepository,
+                                 TvaRepository tvaRepository) {
         this.factureFONRepository = factureFONRepository;
         this.locationFONRepository= locationFONRepository;
         this.tvaRepository=tvaRepository;
@@ -146,6 +167,10 @@ public class FactureFONServiceimpl implements FactureFONService {
         factureFONRepository.save(factureFON);
 
     }
+
+
+
+
 
 
 }
