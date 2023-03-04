@@ -86,9 +86,9 @@ public class DemandeController {
     public ResponseEntity<byte[]> generateReport()throws FileNotFoundException, JRException{
         return demandeService.exportReport() ;
     }
-    @GetMapping("/facturefon/report")
-    public ResponseEntity<byte[]> exportReportFacturefon() throws FileNotFoundException, JRException{
-        return demandeService.exportReportFacturefon();
+    @GetMapping("/locationfon/{idLocation}/facturefon/{idFacture}/report")
+    public ResponseEntity<byte[]> exportReportFacturefon(@PathVariable("idLocation") Integer idLocation,@PathVariable("idFacture") Integer idFacture) throws FileNotFoundException, JRException{
+        return demandeService.exportReportFacturefon(idLocation,idFacture);
     }
 
 

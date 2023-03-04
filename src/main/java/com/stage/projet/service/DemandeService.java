@@ -24,7 +24,7 @@ public interface DemandeService {
 
     ResponseEntity<byte[]> exportReport() throws FileNotFoundException, JRException;
 
-     ResponseEntity<byte[]> exportReportFacturefon() throws FileNotFoundException, JRException;
+     ResponseEntity<byte[]> exportReportFacturefon(Integer idLocation,Integer idFacture) throws FileNotFoundException, JRException;
 
 
 }

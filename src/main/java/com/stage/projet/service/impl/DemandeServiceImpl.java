@@ -151,24 +151,25 @@ public class DemandeServiceImpl implements DemandeService {
 
 
 
-    public ResponseEntity<byte[]> exportReportFacturefon() throws FileNotFoundException, JRException {
+    public ResponseEntity<byte[]> exportReportFacturefon(Integer idLocation, Integer idFacture) throws FileNotFoundException, JRException {
+        log.info(String.valueOf(idLocation),idFacture);
         try {
             String path = "C:\\Users\\Fiacre\\Downloads\\uploads";
 
-            LocationFONDTO locationFONDTO = this.locationFONService.findById(457);
-            FactureFONDTO factureFONDTO = this.factureFONService.findById(460);
-            DemandeDTO demandeDTO = this.locationFONService.DemandeByIdLocationfon(457);
+            LocationFONDTO locationFONDTO = this.locationFONService.findById(idLocation);
+            FactureFONDTO factureFONDTO = this.factureFONService.findById(idFacture);
+            DemandeDTO demandeDTO = this.locationFONService.DemandeByIdLocationfon(idLocation);
             DemandeurDTO demandeurDTO = demandeDTO.getDemandeurDTO();
             List<LiaisonFONDTO> liaisonFONList= locationFONDTO.getLiaisonfons();
             liaisonFONList.forEach(
                     element ->{
-                        double prixTotalMetreLineaireLiaison = locationFONService.getPrixTotalMetreLineaireLiaison(457, element.getId());
+                        double prixTotalMetreLineaireLiaison = locationFONService.getPrixTotalMetreLineaireLiaison(idLocation, element.getId());
                         log.info(String.valueOf(prixTotalMetreLineaireLiaison));
                         element.setCoutMetreLineaireLiaison(prixTotalMetreLineaireLiaison);
                     }
             );
-            Double CoutMetreLineaireTotal = this.locationFONService.getPrixTotalMetreLineaire(457,460);
-            Double CoutMetreLineaireTotalHTVA = this.locationFONService.getPrixTotalMetreLineaireHTVA(457);
+            Double CoutMetreLineaireTotal = this.locationFONService.getPrixTotalMetreLineaire(idLocation,idFacture);
+            Double CoutMetreLineaireTotalHTVA = this.locationFONService.getPrixTotalMetreLineaireHTVA(idLocation);
 
             log.info(String.valueOf(demandeurDTO));
             log.info("******************************************************************");
@@ -197,8 +198,8 @@ public class DemandeServiceImpl implements DemandeService {
             parameters.put("emailDemandeur",demandeurDTO.getEmail());
             parameters.put("telDemandeur",demandeurDTO.getTel());
             parameters.put("tvaFacture",factureFONDTO.getTvaDTO().getTva());
-          //  parameters.put("periodeDebutLocationfon",locationFONDTO.getPeriodeDebut());
-           // parameters.put("periodeFinLocationfon",locationFONDTO.getPeriodeFin());
+            parameters.put("periodeDebut",locationFONDTO.getPeriodeDebut());
+            parameters.put("periodeFin",locationFONDTO.getPeriodeFin());
 
             //elements à gauche dans l'entete
             parameters.put("rccmDemandeur",demandeurDTO.getRccm());

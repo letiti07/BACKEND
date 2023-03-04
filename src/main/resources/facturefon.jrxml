@@ -28,6 +28,12 @@
     <parameter name="coutTotalMetreLineaire" class="java.lang.Double">
         <defaultValueExpression><![CDATA[$P{coutTotalMetreLineaire}]]></defaultValueExpression>
     </parameter>
+    <parameter name="periodeDebut" class="java.util.Date">
+        <defaultValueExpression><![CDATA[$P{periodeDebut}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="periodeFin" class="java.util.Date">
+        <defaultValueExpression><![CDATA[$P{periodeFin}]]></defaultValueExpression>
+    </parameter>
     <field name="debut" class="java.lang.String"/>
     <field name="fin" class="java.lang.String"/>
     <field name="distance" class="java.lang.Float"/>
@@ -338,7 +344,8 @@
         </band>
     </columnHeader>
     <detail>
-        <band height="48" splitType="Stretch">
+        <band height="33" splitType="Stretch">
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
             <textField textAdjust="StretchHeight">
                 <reportElement x="2" y="0" width="39" height="20" uuid="ff424259-49a6-4236-ac13-a30d41e8b097">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="372fc4a5-58e8-4f68-9b0b-b8c92b4521d4"/>
@@ -349,7 +356,7 @@
                 <textFieldExpression><![CDATA[$F{debut}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="222" y="0" width="148" height="19" uuid="e0d9ebf4-c67c-4117-9af2-a466f5d2beac"/>
+                <reportElement x="222" y="0" width="148" height="20" uuid="e0d9ebf4-c67c-4117-9af2-a466f5d2beac"/>
                 <textElement textAlignment="Center">
                     <font size="14"/>
                 </textElement>
@@ -392,6 +399,31 @@
             </textField>
             <staticText>
                 <reportElement x="41" y="0" width="30" height="20" uuid="f3f3b1cc-74a1-466d-9a98-2793ccdb64e6"/>
+                <textElement textAlignment="Center">
+                    <font size="14"/>
+                </textElement>
+                <text><![CDATA[-]]></text>
+            </staticText>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="113" y="0" width="37" height="20" uuid="f10689b1-8583-4eb7-93d4-afda093c83d6">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40a9814d-ecb4-424f-aea8-cad246f112b5"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{periodeDebut}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight">
+                <reportElement x="180" y="0" width="42" height="20" uuid="b93db9f0-922d-477a-81b6-cad281276d9d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40a9814d-ecb4-424f-aea8-cad246f112b5"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{periodeFin}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="150" y="0" width="30" height="20" uuid="afbe35eb-bb63-451e-adab-b49ab88ee131"/>
                 <textElement textAlignment="Center">
                     <font size="14"/>
                 </textElement>
@@ -476,14 +508,14 @@
         </band>
     </columnFooter>
     <pageFooter>
-        <band height="24" splitType="Stretch">
+        <band height="64" splitType="Stretch">
             <textField>
-                <reportElement mode="Opaque" x="0" y="4" width="740" height="13" backcolor="#E6E6E6" uuid="4c97dc66-e9b2-4d67-ac7e-ade74a37f24e"/>
+                <reportElement mode="Opaque" x="1" y="48" width="740" height="13" backcolor="#E6E6E6" uuid="4c97dc66-e9b2-4d67-ac7e-ade74a37f24e"/>
                 <textElement textAlignment="Right"/>
                 <textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
             </textField>
             <textField evaluationTime="Report">
-                <reportElement mode="Opaque" x="740" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="db8ef32d-6c74-42f6-b30a-0a13997dd78e"/>
+                <reportElement mode="Opaque" x="740" y="48" width="40" height="13" backcolor="#E6E6E6" uuid="db8ef32d-6c74-42f6-b30a-0a13997dd78e"/>
                 <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
             </textField>
         </band>
