@@ -33,6 +33,9 @@ public class LiaisonFON  extends AbstractEntity{
 	
 	@Column(name="distance")
 	private float distance;
+
+	@Transient
+	private double coutMetreLineaireLiaison;
 	
 @ManyToOne
 @JoinColumn(name = "idlocationfon")

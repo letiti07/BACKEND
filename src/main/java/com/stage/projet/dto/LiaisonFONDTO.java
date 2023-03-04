@@ -29,6 +29,8 @@ public class LiaisonFONDTO {
 
 	private float distance;
 
+	double coutMetreLineaireLiaison;
+
 	private LocationFONDTO locationFONDTO;
 
 	private List<PointConnexionDTO> pointconnexions;
@@ -43,6 +45,7 @@ public class LiaisonFONDTO {
 				.fin(entity.getFin())
 				.nbreFibre(entity.getNbreFibre())
 				.distance(entity.getDistance())
+				.coutMetreLineaireLiaison(entity.getCoutMetreLineaireLiaison())
 				.locationFONDTO(LocationFONDTO.toDTO(entity.getLocationfon()))
 				.build();
 	}
@@ -55,6 +58,7 @@ public class LiaisonFONDTO {
 		liaisonFON.setFin(dto.getFin());
 		liaisonFON.setNbreFibre(dto.getNbreFibre());
 		liaisonFON.setDistance(dto.getDistance());
+//		liaisonFON.setCoutMetreLineaireLiaison(dto.getCoutMetreLineaireLiaison());
 		liaisonFON.setLocationfon(LocationFONDTO.toEntity(dto.getLocationFONDTO()));
 		log.info(String.valueOf(liaisonFON));
 		return liaisonFON;

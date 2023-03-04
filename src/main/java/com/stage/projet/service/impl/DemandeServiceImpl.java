@@ -160,6 +160,13 @@ public class DemandeServiceImpl implements DemandeService {
             DemandeDTO demandeDTO = this.locationFONService.DemandeByIdLocationfon(457);
             DemandeurDTO demandeurDTO = demandeDTO.getDemandeurDTO();
             List<LiaisonFONDTO> liaisonFONList= locationFONDTO.getLiaisonfons();
+            liaisonFONList.forEach(
+                    element ->{
+                        double prixTotalMetreLineaireLiaison = locationFONService.getPrixTotalMetreLineaireLiaison(457, element.getId());
+                        log.info(String.valueOf(prixTotalMetreLineaireLiaison));
+                        element.setCoutMetreLineaireLiaison(prixTotalMetreLineaireLiaison);
+                    }
+            );
             Double CoutMetreLineaireTotal = this.locationFONService.getPrixTotalMetreLineaire(457,460);
             Double CoutMetreLineaireTotalHTVA = this.locationFONService.getPrixTotalMetreLineaireHTVA(457);
 
