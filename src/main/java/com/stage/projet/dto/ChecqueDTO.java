@@ -32,7 +32,7 @@ public class ChecqueDTO {
                 .build();
     }
 
-    public static Checque toEntity(Checque dto){
+    public static Checque toEntity(ChecqueDTO dto){
         if (dto == null) return null;
         Checque checque = new Checque();
         checque.setId(dto.getId());
