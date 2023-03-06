@@ -1,14 +1,15 @@
 package com.stage.projet.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -18,4 +19,7 @@ public class Virement extends AbstractEntity{
 
     private String numeroVirement;
 
+
+    @OneToOne(mappedBy ="virement")
+    private FactureFON factureFON;
 }

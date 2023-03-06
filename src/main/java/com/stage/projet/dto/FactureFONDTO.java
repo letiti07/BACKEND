@@ -38,7 +38,6 @@ public class FactureFONDTO {
 
     private LocationFONDTO locationFONDTO;
 
-    private TypePaiement typePaiement;
 
     public  static  FactureFONDTO toDTO(FactureFON entity){
         if(entity==null) return null;
@@ -50,7 +49,6 @@ public class FactureFONDTO {
                 .finPeriode(entity.getFinPeriode())
                 .etat(entity.getEtat())
                 .tvaDTO(TvaDTO.toDTO(entity.getTva()))
-                .typePaiement(entity.getTypePaiement())
                 .duree(entity.getDuree())
                 .creationDate(entity.getCreationDate())
                 .lastUpdateDate(entity.getLastUpdateDate())

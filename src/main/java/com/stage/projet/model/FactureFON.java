@@ -43,9 +43,11 @@ public class FactureFON  extends AbstractEntity{
 	@JoinColumn(name = "idtva")
 	private Tva tva;
 
-	@ManyToOne
-	@JoinColumn(name = "idtypePaiement")
-	private TypePaiement typePaiement;
+
+	@OneToOne
+	@JoinColumn(name="idvirement")
+	private Virement virement;
+
 
 
 
