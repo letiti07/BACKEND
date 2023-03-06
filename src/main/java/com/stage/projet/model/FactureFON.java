@@ -48,6 +48,10 @@ public class FactureFON  extends AbstractEntity{
 	@JoinColumn(name="idvirement")
 	private Virement virement;
 
+	@OneToOne
+	@JoinColumn(name="idcheque")
+	private Checque checque;
+
 
 
 
