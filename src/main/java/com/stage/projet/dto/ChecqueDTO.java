@@ -15,7 +15,7 @@ public class ChecqueDTO {
 
     private int id;
 
-    private  String numeroChecque;
+    private  Long numeroChecque;
 
     private Date creationDate = new Date();
 
