@@ -14,7 +14,7 @@ public class VirementDTO {
 
     private Integer id;
 
-    private String numeroCompteVirement;
+    private Long numeroCompteVirement;
 
     private Date creationDate = new Date();
 

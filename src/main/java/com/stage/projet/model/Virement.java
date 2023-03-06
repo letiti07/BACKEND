@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class Virement extends AbstractEntity{
 
 
-    private String numeroCompteVirement;
+    private Long numeroCompteVirement;
 
 
     @OneToOne(mappedBy ="virement")
