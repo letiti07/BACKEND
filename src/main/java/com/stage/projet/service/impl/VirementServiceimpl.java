@@ -25,21 +25,31 @@ public class VirementServiceimpl implements VirementService {
 
     @Override
     public List<VirementDTO> findAll() {
-        return null;
+        List<VirementDTO> virementDTOS = this.virementRepository.findAll().stream().map(VirementDTO::toDTO).toList();
+
+        return virementDTOS;
     }
 
     @Override
     public VirementDTO findById(Integer id) {
+        if(virementRepository.findById(id).isPresent()){
+            VirementDTO virementDTO = VirementDTO.toDTO(virementRepository.findById(id).get());
+            return virementDTO;
+        }
         return null;
     }
 
     @Override
     public void update(Integer identifiant, VirementDTO virementDTO) {
+        virementDTO.setId(identifiant);
+        Virement save = virementRepository.save(VirementDTO.toEntity(virementDTO));
+
+        virementRepository.save(save);
 
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        this.virementRepository.deleteById(id);
     }
 }
