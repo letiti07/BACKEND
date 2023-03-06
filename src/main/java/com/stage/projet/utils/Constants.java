@@ -28,6 +28,10 @@ public interface Constants {
 
     public static String ENDPOINT_FACTUREFON= APP_ROOT + "/factureFON";
 
+    public static String ENDPOINT_VIREMENT= APP_ROOT + "/virement";
+
+    public static String ENDPOINT_CHECQUE= APP_ROOT + "/checque";
+
 
 
 
