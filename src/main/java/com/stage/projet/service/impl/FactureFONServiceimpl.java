@@ -152,7 +152,9 @@ public class FactureFONServiceimpl implements FactureFONService {
     }
 
     public void validerPaye(FactureFONDTO factureFONDTO,Integer identifiant) {
-        int id=factureFONDTO.getLocationFONDTO().getId();
+
+        log.info(String.valueOf(factureFONDTO));
+     /*   int id=factureFONDTO.getLocationFONDTO().getId();
         int d1=factureFONDTO.getTvaDTO().getId();
         log.info(String.valueOf(id));
         Optional<LocationFON> locationFON = locationFONRepository.findById(id);
@@ -165,6 +167,8 @@ public class FactureFONServiceimpl implements FactureFONService {
         factureFON.setId(identifiant);
         factureFON.setEtat(etat);
         factureFONRepository.save(factureFON);
+
+      */
 
     }
 

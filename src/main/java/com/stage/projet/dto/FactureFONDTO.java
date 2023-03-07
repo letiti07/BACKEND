@@ -38,6 +38,10 @@ public class FactureFONDTO {
 
     private LocationFONDTO locationFONDTO;
 
+    private VirementDTO virementDTO;
+
+    private ChecqueDTO checqueDTO;
+
 
     public  static  FactureFONDTO toDTO(FactureFON entity){
         if(entity==null) return null;
@@ -50,6 +54,8 @@ public class FactureFONDTO {
                 .etat(entity.getEtat())
                 .tvaDTO(TvaDTO.toDTO(entity.getTva()))
                 .duree(entity.getDuree())
+                .virementDTO(VirementDTO.toDTO(entity.getVirement()))
+                .checqueDTO(ChecqueDTO.toDTO(entity.getChecque()))
                 .creationDate(entity.getCreationDate())
                 .lastUpdateDate(entity.getLastUpdateDate())
                 .build();
@@ -68,6 +74,8 @@ public class FactureFONDTO {
        factureFON.setTva(TvaDTO.toEntity(dto.getTvaDTO()));
        factureFON.setDuree(dto.getDuree());
        factureFON.setLocationfon(LocationFONDTO.toEntity(dto.getLocationFONDTO()));
+       factureFON.setVirement(VirementDTO.toEntity(dto.getVirementDTO()));
+       factureFON.setChecque(ChecqueDTO.toEntity(dto.getChecqueDTO()));
         return factureFON;
 
     }
