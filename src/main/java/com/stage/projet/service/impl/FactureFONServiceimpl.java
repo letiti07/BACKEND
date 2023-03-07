@@ -1,14 +1,8 @@
 package com.stage.projet.service.impl;
 
-import com.stage.projet.dto.FactureFONDTO;
-import com.stage.projet.dto.LiaisonFONDTO;
-import com.stage.projet.dto.TvaDTO;
-import com.stage.projet.model.Demande;
-import com.stage.projet.model.FactureFON;
-import com.stage.projet.model.LocationFON;
-import com.stage.projet.model.Tva;
-import com.stage.projet.repository.DemandeRepository;
-import com.stage.projet.repository.FactureFONRepository;
+import com.stage.projet.dto.*;
+import com.stage.projet.model.*;
+import com.stage.projet.repository.*;
 import com.stage.projet.service.DemandeService;
 import com.stage.projet.service.FactureFONService;
 import com.stage.projet.service.LocationFONService;
@@ -28,8 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import com.stage.projet.repository.LocationFONRepository;
-import com.stage.projet.repository.TvaRepository;
+
 import org.springframework.util.ResourceUtils;
 
 import javax.servlet.http.HttpServletResponse;
@@ -47,11 +40,17 @@ public class FactureFONServiceimpl implements FactureFONService {
 
     TvaRepository tvaRepository;
 
+    VirementRepository virementRepository;
+
+    ChecqueRepository checqueRepository;
+
     public FactureFONServiceimpl(FactureFONRepository factureFONRepository,LocationFONRepository locationFONRepository,
-                                 TvaRepository tvaRepository) {
+                                 TvaRepository tvaRepository,VirementRepository virementRepository,ChecqueRepository checqueRepository) {
         this.factureFONRepository = factureFONRepository;
         this.locationFONRepository= locationFONRepository;
         this.tvaRepository=tvaRepository;
+        this.virementRepository=virementRepository;
+        this.checqueRepository=checqueRepository;
     }
 
     @Override
@@ -153,8 +152,9 @@ public class FactureFONServiceimpl implements FactureFONService {
 
     public void validerPaye(FactureFONDTO factureFONDTO,Integer identifiant) {
 
-        log.info(String.valueOf(factureFONDTO));
-     /*   int id=factureFONDTO.getLocationFONDTO().getId();
+        log.info(String.valueOf(factureFONDTO.getVirementDTO()));
+        log.info(String.valueOf(factureFONDTO.getChecqueDTO()));
+        int id=factureFONDTO.getLocationFONDTO().getId();
         int d1=factureFONDTO.getTvaDTO().getId();
         log.info(String.valueOf(id));
         Optional<LocationFON> locationFON = locationFONRepository.findById(id);
@@ -163,12 +163,23 @@ public class FactureFONServiceimpl implements FactureFONService {
         factureFON.setLocationfon(locationFON.get());
         factureFON.setTva(tva.get());
 
+        if(factureFONDTO.getVirementDTO()!=null){
+            VirementDTO virementDTO = factureFONDTO.getVirementDTO();
+            Virement save = this.virementRepository.save(VirementDTO.toEntity(virementDTO));
+            factureFON.setVirement(save);
+        }
+
+        if(factureFONDTO.getChecqueDTO()!=null){
+            ChecqueDTO checqueDTO = factureFONDTO.getChecqueDTO();
+            Checque save = this.checqueRepository.save(ChecqueDTO.toEntity(checqueDTO));
+            factureFON.setChecque(save);
+        }
+
         String etat="payee";
         factureFON.setId(identifiant);
         factureFON.setEtat(etat);
         factureFONRepository.save(factureFON);
 
-      */
 
     }
 

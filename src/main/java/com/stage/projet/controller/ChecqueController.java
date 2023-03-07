@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.stage.projet.utils.Constants.ENDPOINT_CHECQUE;
-import static com.stage.projet.utils.Constants.ENDPOINT_VIREMENT;
+
 
 @Slf4j
 @RestController
