@@ -43,6 +43,8 @@ public class FactureFON  extends AbstractEntity{
 	@JoinColumn(name = "idtva")
 	private Tva tva;
 
+	@Column(name="commentaires")
+	private String commentaires;
 
 	@OneToOne
 	@JoinColumn(name="idvirement")

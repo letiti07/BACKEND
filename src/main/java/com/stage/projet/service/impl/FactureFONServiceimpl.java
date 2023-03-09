@@ -142,6 +142,10 @@ public class FactureFONServiceimpl implements FactureFONService {
         factureFON.setLocationfon(locationFON.get());
         factureFON.setTva(tva.get());
 
+        factureFON.setCommentaires(factureFONDTO.getCommentaires());
+
+        log.info(String.valueOf(factureFON));
+
         String etat="annulee";
         factureFON.setId(identifiant);
         factureFON.setEtat(etat);
