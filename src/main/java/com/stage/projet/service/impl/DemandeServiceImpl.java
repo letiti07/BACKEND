@@ -61,7 +61,8 @@ public class DemandeServiceImpl implements DemandeService {
         //pour injecter la location avec ses liaisons et points de connection à l'interieur de chaque demande
         demandeDTOS.forEach(element->{
             if(element.getLocationFONDTO()!=null){
-                element.setLocationFONDTO(this.locationFONService.findById(element.getLocationFONDTO().getId()));
+                LocationFONDTO byId = this.locationFONService.findById(element.getLocationFONDTO().getId());
+                element.setLocationFONDTO(byId);
             }
 
         });
@@ -108,7 +109,7 @@ public class DemandeServiceImpl implements DemandeService {
         List<DemandeDTO> demandeDTOS = demandeRepository.findAllByObjetAndEtat(objet, etat).stream().map(DemandeDTO::toDTO).toList();
         List<DemandeDTO> listefinal=new ArrayList<>();
         demandeDTOS.forEach(element->{
-            log.info(String.valueOf(element));
+        //    log.info(String.valueOf(element));
 
             if( element.getLocationFONDTO()!=null &&
                     (element.getLocationFONDTO().getEtat()==null || element.getLocationFONDTO().getEtat().equals("non-validé")) ||

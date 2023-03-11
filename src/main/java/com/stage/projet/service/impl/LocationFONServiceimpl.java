@@ -44,6 +44,7 @@ public class LocationFONServiceimpl implements LocationFONService {
         LocationFON save = locationFONRepository.save(locationFONDTO.toEntity(locationFONDTO));
 
         List<LiaisonFONDTO> liaisonFONDTOS=locationFONDTO.getLiaisonfons();
+
         liaisonFONDTOS.forEach(element->{
             element.setLocationFONDTO(LocationFONDTO.toDTO(save));
             this.liaisonFONService.create(element);
@@ -200,6 +201,7 @@ public class LocationFONServiceimpl implements LocationFONService {
 
 
     public void ValidateEnInstanceLocationFon(Integer id){
+        log.info(String.valueOf(id));
         Optional<LocationFON> entite = locationFONRepository.findById(id);
         String etat= "en instance";
         entite.get().setEtat(etat);

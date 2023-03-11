@@ -157,6 +157,7 @@ public class LocationFONController {
 
     @GetMapping(value = "/validateEnInstance/{idLocation}")
     public void ValidateEnInstanceLocationFon(@PathVariable("idLocation") Integer id){
+        log.info(String.valueOf(id));
         if(locationFONService.findById(id)==null){
             throw new RessourceNotFoundException();
         }
