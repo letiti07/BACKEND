@@ -26,6 +26,7 @@ import org.springframework.util.ResourceUtils;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -162,29 +163,43 @@ public class DemandeServiceImpl implements DemandeService {
             DemandeDTO demandeDTO = this.locationFONService.DemandeByIdLocationfon(idLocation);
             DemandeurDTO demandeurDTO = demandeDTO.getDemandeurDTO();
             List<LiaisonFONDTO> liaisonFONList= locationFONDTO.getLiaisonfons();
+            List<LiaisonFactureDTO> liaisonFactureDTOList = new ArrayList<LiaisonFactureDTO>();
             liaisonFONList.forEach(
                     element ->{
                         double prixTotalMetreLineaireLiaison = locationFONService.getPrixTotalMetreLineaireLiaison(idLocation, element.getId());
                         log.info(String.valueOf(prixTotalMetreLineaireLiaison));
                         element.setCoutMetreLineaireLiaison(prixTotalMetreLineaireLiaison);
+                        LiaisonFactureDTO liaisonFactureDTO = new LiaisonFactureDTO();
+                        liaisonFactureDTO.setDesignation( "Liaison de " + element.getDebut() + " - " + element.getFin());
+                        liaisonFactureDTO.setPeriode(String.valueOf(factureFONDTO.getDebutPeriode()) + " à " + String.valueOf(factureFONDTO.getFinPeriode()));
+                        liaisonFactureDTO.setDuree(String.valueOf(factureFONDTO.getDuree()));
+                        liaisonFactureDTO.setLongueur(String.valueOf(element.getDistance()) + "mètres");
+                        liaisonFactureDTO.setPrix_unitaire(BigDecimal.valueOf(75));
+                        liaisonFactureDTO.setPrix_total(BigDecimal.valueOf(element.getCoutMetreLineaireLiaison()));
+                        liaisonFactureDTOList.add(liaisonFactureDTO);
+
                     }
             );
             Double CoutMetreLineaireTotal = this.locationFONService.getPrixTotalMetreLineaire(idLocation,idFacture);
             Double CoutMetreLineaireTotalHTVA = this.locationFONService.getPrixTotalMetreLineaireHTVA(idLocation);
 
-            log.info(String.valueOf(demandeurDTO));
+      /*      log.info(String.valueOf(demandeurDTO));
             log.info("******************************************************************");
             log.info(String.valueOf(demandeDTO));
             log.info("******************************************************************");
             log.info(String.valueOf(locationFONDTO));
-            log.info("******************************************************************");
+       */     log.info("****************************liste des liaisons de facture**************************************");
+            log.info(liaisonFactureDTOList.toString());
+            log.info("****************************liste des liaisons**************************************");
             log.info(liaisonFONList.toString());
-            log.info("******************************************************************");
+     /*       log.info("******************************************************************");
             log.info(factureFONDTO.toString());
             log.info("******************************************************************");
             log.info(CoutMetreLineaireTotalHTVA.toString());
             log.info("******************************************************************");
             log.info(CoutMetreLineaireTotal.toString());
+
+      */
 
 
             //load file and compile it
@@ -198,7 +213,7 @@ public class DemandeServiceImpl implements DemandeService {
             parameters.put("bpDemandeur",demandeurDTO.getBoitePostale());
             parameters.put("emailDemandeur",demandeurDTO.getEmail());
             parameters.put("telDemandeur",demandeurDTO.getTel());
-            parameters.put("tvaFacture",factureFONDTO.getTvaDTO().getTva());
+            parameters.put("tvaFacture", new BigDecimal(factureFONDTO.getTvaDTO().getTva()));
             parameters.put("periodeDebut",locationFONDTO.getPeriodeDebut());
             parameters.put("periodeFin",locationFONDTO.getPeriodeFin());
 
@@ -207,14 +222,16 @@ public class DemandeServiceImpl implements DemandeService {
             parameters.put("ifuDemandeur",demandeurDTO.getIfu());
 
             //total du cout par metre lineaire
-            parameters.put("coutTotalMetreLineaireHTVA",CoutMetreLineaireTotalHTVA);
+            parameters.put("coutTotalMetreLineaireHTVA",new BigDecimal(CoutMetreLineaireTotalHTVA));
 
             //total du cout par metre lineaire
-            parameters.put("coutTotalMetreLineaire",CoutMetreLineaireTotal);
+            parameters.put("coutTotalMetreLineaire",new BigDecimal(CoutMetreLineaireTotal));
 
 
+            parameters.put("data_liaison",new JRBeanCollectionDataSource(liaisonFactureDTOList));
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,new JREmptyDataSource());
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
             headers.setContentDispositionFormData("filename", "facture de fibre optique noire.pdf");
