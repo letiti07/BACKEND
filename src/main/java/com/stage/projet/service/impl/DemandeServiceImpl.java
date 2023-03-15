@@ -27,6 +27,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -171,16 +172,16 @@ public class DemandeServiceImpl implements DemandeService {
                         element.setCoutMetreLineaireLiaison(prixTotalMetreLineaireLiaison);
                         LiaisonFactureDTO liaisonFactureDTO = new LiaisonFactureDTO();
                         liaisonFactureDTO.setDesignation( "Liaison de " + element.getDebut() + " - " + element.getFin());
-                        liaisonFactureDTO.setPeriode(String.valueOf(factureFONDTO.getDebutPeriode()) + " à " + String.valueOf(factureFONDTO.getFinPeriode()));
-                        liaisonFactureDTO.setDuree(String.valueOf(factureFONDTO.getDuree()));
-                        liaisonFactureDTO.setLongueur(String.valueOf(element.getDistance()) + "mètres");
+                        liaisonFactureDTO.setPeriode(String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getDebutPeriode())) + " à " + String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getFinPeriode())));
+                        liaisonFactureDTO.setDuree(String.valueOf(factureFONDTO.getDuree()) + " mois");
+                        liaisonFactureDTO.setLongueur(String.valueOf(((int) element.getDistance())) + " mètres");
                         liaisonFactureDTO.setPrix_unitaire(BigDecimal.valueOf(75));
                         liaisonFactureDTO.setPrix_total(BigDecimal.valueOf(element.getCoutMetreLineaireLiaison()));
                         liaisonFactureDTOList.add(liaisonFactureDTO);
 
                     }
             );
-            Double CoutMetreLineaireTotal = this.locationFONService.getPrixTotalMetreLineaire(idLocation,idFacture);
+            Double CoutMetreLineaireTotalttc = this.locationFONService.getPrixTotalMetreLineaire(idLocation,idFacture);
             Double CoutMetreLineaireTotalHTVA = this.locationFONService.getPrixTotalMetreLineaireHTVA(idLocation);
 
       /*      log.info(String.valueOf(demandeurDTO));
@@ -213,19 +214,22 @@ public class DemandeServiceImpl implements DemandeService {
             parameters.put("bpDemandeur",demandeurDTO.getBoitePostale());
             parameters.put("emailDemandeur",demandeurDTO.getEmail());
             parameters.put("telDemandeur",demandeurDTO.getTel());
-            parameters.put("tvaFacture", new BigDecimal(factureFONDTO.getTvaDTO().getTva()));
-            parameters.put("periodeDebut",locationFONDTO.getPeriodeDebut());
-            parameters.put("periodeFin",locationFONDTO.getPeriodeFin());
+            parameters.put("tvaFacture", factureFONDTO.getTvaDTO().getTva());
+       //     parameters.put("periodeDebut", new SimpleDateFormat("dd/MM/yyyy").format(locationFONDTO.getPeriodeDebut()));
+      //      parameters.put("periodeFin",locationFONDTO.getPeriodeFin());
 
             //elements à gauche dans l'entete
             parameters.put("rccmDemandeur",demandeurDTO.getRccm());
             parameters.put("ifuDemandeur",demandeurDTO.getIfu());
 
-            //total du cout par metre lineaire
+            //cout total htva
             parameters.put("coutTotalMetreLineaireHTVA",new BigDecimal(CoutMetreLineaireTotalHTVA));
 
-            //total du cout par metre lineaire
-            parameters.put("coutTotalMetreLineaire",new BigDecimal(CoutMetreLineaireTotal));
+            //cout total ttc
+            parameters.put("coutTotalMetreLineaire",new BigDecimal(CoutMetreLineaireTotalttc));
+
+            //periode de facture
+            parameters.put("periode",String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getDebutPeriode())) + " à " + String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getFinPeriode())));
 
 
             parameters.put("data_liaison",new JRBeanCollectionDataSource(liaisonFactureDTOList));
