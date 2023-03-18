@@ -105,11 +105,20 @@
     <parameter name="idFacture" class="java.lang.String">
         <defaultValueExpression><![CDATA[$P{idFacture}]]></defaultValueExpression>
     </parameter>
+    <parameter name="coutTotalMetreLineaireLetters" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{coutTotalMetreLineaireLetters}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="FraisHebergementTotalLetters" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{FraisHebergementTotalLetters}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="montantTotalFacture" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{montantTotalFacture}]]></defaultValueExpression>
+    </parameter>
     <title>
         <band height="102" splitType="Stretch">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
             <frame>
-                <reportElement mode="Opaque" x="-20" y="-18" width="595" height="108" backcolor="rgba(42, 143, 245, 0.0)" uuid="dd9e3d1d-68f0-44a3-8702-bbd7cb32236d">
+                <reportElement mode="Opaque" x="-20" y="-18" width="595" height="120" backcolor="rgba(42, 143, 245, 0.0)" uuid="dd9e3d1d-68f0-44a3-8702-bbd7cb32236d">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <staticText>
@@ -316,7 +325,7 @@
                     <imageExpression><![CDATA["C:/Users/Fiacre/Desktop/logo.png"]]></imageExpression>
                 </image>
                 <staticText>
-                    <reportElement style="Table_TD" x="187" y="82" width="192" height="26" forecolor="#000000" backcolor="rgba(255, 255, 255, 0.0)" uuid="3ffad9d9-1904-4486-96b1-37d23b1bf7d0">
+                    <reportElement style="Table_TD" x="187" y="100" width="262" height="16" forecolor="#000000" backcolor="rgba(255, 255, 255, 0.0)" uuid="3ffad9d9-1904-4486-96b1-37d23b1bf7d0">
                         <property name="com.jaspersoft.studio.unit.height" value="px"/>
                     </reportElement>
                     <box>
@@ -329,7 +338,7 @@
                     <textElement textAlignment="Center">
                         <font size="12" isBold="true" isUnderline="true"/>
                     </textElement>
-                    <text><![CDATA[Location de Fibre Optique Noire]]></text>
+                    <text><![CDATA[Facture de Location de Fibre Optique Noire]]></text>
                 </staticText>
                 <textField>
                     <reportElement x="463" y="15" width="100" height="11" uuid="fd865afd-5a2c-4bf9-85cd-ce22c2646e23"/>
@@ -605,20 +614,13 @@
                 <text><![CDATA[Arrêtée la facture à la somme de : ]]></text>
             </staticText>
             <textField>
-                <reportElement x="189" y="4" width="74" height="15" uuid="92dd7c6f-3d40-49c9-92bf-c6c27b52aa4d"/>
+                <reportElement x="189" y="4" width="211" height="15" uuid="92dd7c6f-3d40-49c9-92bf-c6c27b52aa4d"/>
                 <box rightPadding="13"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
                     <font size="11" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{coutTotalMetreLineaire}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{coutTotalMetreLineaireLetters}]]></textFieldExpression>
             </textField>
-            <staticText>
-                <reportElement x="263" y="4" width="56" height="15" uuid="ab626dae-f265-4513-a389-2095f1fae46c"/>
-                <textElement>
-                    <font size="11"/>
-                </textElement>
-                <text><![CDATA[franc CFA]]></text>
-            </staticText>
         </band>
         <band height="55">
             <componentElement>
@@ -873,12 +875,12 @@
         </band>
         <band height="25">
             <textField>
-                <reportElement x="167" y="6" width="90" height="15" uuid="0f7088ba-7f96-4cba-9709-80c899fc95ce"/>
+                <reportElement x="167" y="6" width="223" height="15" uuid="0f7088ba-7f96-4cba-9709-80c899fc95ce"/>
                 <box rightPadding="13"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
                     <font size="11" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{FraisHebergementTotal}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{FraisHebergementTotalLetters}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="2" y="6" width="165" height="15" uuid="3394494f-c9ac-42fd-8c63-2fc9f45776f4"/>
@@ -887,17 +889,10 @@
                 </textElement>
                 <text><![CDATA[Arrêtée la facture à la somme de : ]]></text>
             </staticText>
-            <staticText>
-                <reportElement x="257" y="6" width="56" height="15" uuid="de24f537-7c26-4819-a748-2d367056d874"/>
-                <textElement>
-                    <font size="11"/>
-                </textElement>
-                <text><![CDATA[franc CFA]]></text>
-            </staticText>
         </band>
-        <band height="32">
+        <band height="77">
             <staticText>
-                <reportElement x="2" y="8" width="205" height="15" uuid="ef96273c-f89c-44ca-8e42-0bfc0068bf57">
+                <reportElement x="2" y="32" width="205" height="15" uuid="ef96273c-f89c-44ca-8e42-0bfc0068bf57">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <textElement verticalAlignment="Middle">
@@ -906,12 +901,29 @@
                 <text><![CDATA[Cette facture concerne la période de  : ]]></text>
             </staticText>
             <textField>
-                <reportElement x="207" y="8" width="236" height="15" uuid="1a911e78-d022-4359-a087-cab810c256ec"/>
+                <reportElement x="207" y="32" width="236" height="15" uuid="1a911e78-d022-4359-a087-cab810c256ec"/>
                 <box rightPadding="13"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
                     <font size="11" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{periode}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="2" y="10" width="205" height="15" uuid="16f175db-fcfc-4a3d-aa22-63e3e0ffd407">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement verticalAlignment="Middle">
+                    <font size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[MONTANT TOTAL FACTURE  : ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="207" y="10" width="343" height="15" uuid="06f0deec-68b7-48d4-ad89-bb845fa8ead2"/>
+                <box rightPadding="13"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{montantTotalFacture}]]></textFieldExpression>
             </textField>
         </band>
         <band height="114">

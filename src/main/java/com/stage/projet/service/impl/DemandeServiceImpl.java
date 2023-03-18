@@ -218,6 +218,11 @@ public class DemandeServiceImpl implements DemandeService {
             Double FraisHebergementTotalHTVA = this.locationFONService.getFraisHebergementTotalHTVA(idLocation);
             Double FraisHebergementTotalWithTVA= this.locationFONService.getFraisHebergementTotalWithTva(idLocation,idFacture);
 
+            String FraisHebergementTotalLetters= (int)Math.round(FraisHebergementTotalttc) + " franc CFA";
+            String coutTotalMetreLineaireLetters = (int)Math.round(CoutMetreLineaireTotalttc) + " franc CFA";
+
+            String montantTotalFacture= String.valueOf((int) Math.round(CoutMetreLineaireTotalttc + FraisHebergementTotalttc));
+
 
             //load file and compile it
             File file = ResourceUtils.getFile("classpath:facturefon.jrxml");
@@ -259,6 +264,13 @@ public class DemandeServiceImpl implements DemandeService {
 
             //periode de facture
             parameters.put("periode",String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getDebutPeriode())) + " à " + String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getFinPeriode())));
+
+
+            parameters.put("FraisHebergementTotalLetters", FraisHebergementTotalLetters);
+
+            parameters.put("coutTotalMetreLineaireLetters",coutTotalMetreLineaireLetters);
+
+            parameters.put("montantTotalFacture",montantTotalFacture + " franc CFA");
 
 
             parameters.put("data_liaison",new JRBeanCollectionDataSource(liaisonFactureDTOList));
