@@ -161,17 +161,43 @@ public class DemandeServiceImpl implements DemandeService {
 
             LocationFONDTO locationFONDTO = this.locationFONService.findById(idLocation);
             FactureFONDTO factureFONDTO = this.factureFONService.findById(idFacture);
+            String numeroFacture= "N°"+factureFONDTO.getId() + "/2023/DSI/DIFO";
             DemandeDTO demandeDTO = this.locationFONService.DemandeByIdLocationfon(idLocation);
             DemandeurDTO demandeurDTO = demandeDTO.getDemandeurDTO();
             List<LiaisonFONDTO> liaisonFONList= locationFONDTO.getLiaisonfons();
             List<LiaisonFactureDTO> liaisonFactureDTOList = new ArrayList<LiaisonFactureDTO>();
+            List<SiteDTO> siteDTOList = new ArrayList<>();
+
+
+            liaisonFONList.forEach(
+                    element ->{
+                        List<PointConnexionDTO> pointconnexions = element.getPointconnexions();
+
+                        pointconnexions.forEach(
+                                pointConnexion -> {
+                                    SiteDTO siteDTO = new SiteDTO();
+                                    siteDTO.setDesignation(element.getDebut() + " - " + element.getFin());
+                                    siteDTO.setPeriode(String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getDebutPeriode())) + " à " + String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getFinPeriode())));
+                                    siteDTO.setDuree(String.valueOf(factureFONDTO.getDuree()) + " mois");
+                                    siteDTO.setSite(pointConnexion.getNom());
+                                    siteDTO.setType(pointConnexion.getTypeHebergement());
+                                    siteDTO.setPrix_total((int) pointConnexion.getFraisHebergement());
+                                    siteDTOList.add(siteDTO);
+                                }
+
+                        );
+
+                    }
+            );
+
+
             liaisonFONList.forEach(
                     element ->{
                         double prixTotalMetreLineaireLiaison = locationFONService.getPrixTotalMetreLineaireLiaison(idLocation, element.getId());
                         log.info(String.valueOf(prixTotalMetreLineaireLiaison));
                         element.setCoutMetreLineaireLiaison(prixTotalMetreLineaireLiaison);
                         LiaisonFactureDTO liaisonFactureDTO = new LiaisonFactureDTO();
-                        liaisonFactureDTO.setDesignation( "Liaison de " + element.getDebut() + " - " + element.getFin());
+                        liaisonFactureDTO.setDesignation( element.getDebut() + " - " + element.getFin());
                         liaisonFactureDTO.setPeriode(String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getDebutPeriode())) + " à " + String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getFinPeriode())));
                         liaisonFactureDTO.setDuree(String.valueOf(factureFONDTO.getDuree()) + " mois");
                         liaisonFactureDTO.setLongueur(String.valueOf(((int) element.getDistance())) + " mètres");
@@ -181,28 +207,16 @@ public class DemandeServiceImpl implements DemandeService {
 
                     }
             );
+
+
+
             Double CoutMetreLineaireTotalttc = this.locationFONService.getPrixTotalMetreLineaire(idLocation,idFacture);
             Double CoutMetreLineaireTotalHTVA = this.locationFONService.getPrixTotalMetreLineaireHTVA(idLocation);
             Double CoutMetreLineaireTotalWithTVA= this.locationFONService.getPrixTotalMetreLineaireWithTVA(idLocation,idFacture);
 
-
-      /*      log.info(String.valueOf(demandeurDTO));
-            log.info("******************************************************************");
-            log.info(String.valueOf(demandeDTO));
-            log.info("******************************************************************");
-            log.info(String.valueOf(locationFONDTO));
-       */     log.info("****************************liste des liaisons de facture**************************************");
-        //    log.info(liaisonFactureDTOList.toString());
-       //     log.info("****************************liste des liaisons**************************************");
-      //      log.info(liaisonFONList.toString());
-     /*       log.info("******************************************************************");
-            log.info(factureFONDTO.toString());
-            log.info("******************************************************************");
-            log.info(CoutMetreLineaireTotalHTVA.toString());
-            log.info("******************************************************************");
-            log.info(CoutMetreLineaireTotal.toString());
-
-      */
+            Double FraisHebergementTotalttc = this.locationFONService.getFraisHebergementTotal(idLocation,idFacture);
+            Double FraisHebergementTotalHTVA = this.locationFONService.getFraisHebergementTotalHTVA(idLocation);
+            Double FraisHebergementTotalWithTVA= this.locationFONService.getFraisHebergementTotalWithTva(idLocation,idFacture);
 
 
             //load file and compile it
@@ -216,13 +230,13 @@ public class DemandeServiceImpl implements DemandeService {
             parameters.put("bpDemandeur",demandeurDTO.getBoitePostale());
             parameters.put("emailDemandeur",demandeurDTO.getEmail());
             parameters.put("telDemandeur",demandeurDTO.getTel());
-          //  parameters.put("tvaFacture", factureFONDTO.getTvaDTO().getTva());
-       //     parameters.put("periodeDebut", new SimpleDateFormat("dd/MM/yyyy").format(locationFONDTO.getPeriodeDebut()));
-      //      parameters.put("periodeFin",locationFONDTO.getPeriodeFin());
+
 
             //elements à gauche dans l'entete
             parameters.put("rccmDemandeur",demandeurDTO.getRccm());
             parameters.put("ifuDemandeur",demandeurDTO.getIfu());
+
+            parameters.put("idFacture", numeroFacture);
 
             //cout total htva
             parameters.put("coutTotalMetreLineaireHTVA",(int) Math.round(CoutMetreLineaireTotalHTVA));
@@ -233,11 +247,23 @@ public class DemandeServiceImpl implements DemandeService {
             //cout total with tva
             parameters.put("coutTotalMetreLineaireWithTva", (int)Math.round(CoutMetreLineaireTotalWithTVA));
 
+            //cout total htva
+            parameters.put("FraisHebergementHTVA",(int) Math.round(FraisHebergementTotalHTVA));
+
+            //cout total ttc
+            parameters.put("FraisHebergementTotal",(int)Math.round (FraisHebergementTotalttc));
+
+            //cout total with tva
+            parameters.put("FraisHebergementWithTVA", (int)Math.round(FraisHebergementTotalWithTVA));
+            log.info(String.valueOf(FraisHebergementTotalWithTVA));
+
             //periode de facture
             parameters.put("periode",String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getDebutPeriode())) + " à " + String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getFinPeriode())));
 
 
             parameters.put("data_liaison",new JRBeanCollectionDataSource(liaisonFactureDTOList));
+
+            parameters.put("data_liaison1",new JRBeanCollectionDataSource(siteDTOList));
 
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,new JREmptyDataSource());
