@@ -30,9 +30,9 @@
     </style>
     <subDataset name="Empty Dataset1" uuid="aba719c1-2671-4e6e-9ce9-f24ff999d7bc"/>
     <subDataset name="Dataset_liaison_list" uuid="968c1783-c3a7-4f9a-958c-bb493b6eda29">
-        <parameter name="total_ht" class="java.math.BigDecimal"/>
-        <parameter name="tva" class="java.lang.Double"/>
-        <parameter name="montant_ttc" class="java.math.BigDecimal"/>
+        <parameter name="total_ht" class="java.lang.Integer"/>
+        <parameter name="tva" class="java.lang.Integer"/>
+        <parameter name="montant_ttc" class="java.lang.Integer"/>
         <queryString>
             <![CDATA[]]>
         </queryString>
@@ -64,14 +64,17 @@
     <parameter name="tvaFacture" class="java.lang.Double">
         <defaultValueExpression><![CDATA[$P{tvaFacture}]]></defaultValueExpression>
     </parameter>
-    <parameter name="coutTotalMetreLineaireHTVA" class="java.math.BigDecimal">
+    <parameter name="coutTotalMetreLineaireHTVA" class="java.lang.Integer">
         <defaultValueExpression><![CDATA[$P{coutTotalMetreLineaireHTVA}]]></defaultValueExpression>
     </parameter>
-    <parameter name="coutTotalMetreLineaire" class="java.math.BigDecimal">
+    <parameter name="coutTotalMetreLineaire" class="java.lang.Integer">
         <defaultValueExpression><![CDATA[$P{coutTotalMetreLineaire}]]></defaultValueExpression>
     </parameter>
     <parameter name="data_liaison" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
     <parameter name="periode" class="java.lang.String"/>
+    <parameter name="coutTotalMetreLineaireWithTva" class="java.lang.Integer">
+        <defaultValueExpression><![CDATA[$P{coutTotalMetreLineaireWithTva}]]></defaultValueExpression>
+    </parameter>
     <title>
         <band height="132" splitType="Stretch">
             <frame>
@@ -295,12 +298,12 @@
                     <property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
                 </reportElement>
                 <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-                    <datasetRun subDataset="Dataset_liaison_list" uuid="914577c3-088f-4cc1-9462-1c58192532b7">
+                    <datasetRun subDataset="Dataset_liaison_list" uuid="66a8da34-76e9-49a6-ac1e-6e2d1b9eb2cd">
                         <datasetParameter name="montant_ttc">
                             <datasetParameterExpression><![CDATA[$P{coutTotalMetreLineaire}]]></datasetParameterExpression>
                         </datasetParameter>
                         <datasetParameter name="tva">
-                            <datasetParameterExpression><![CDATA[$P{tvaFacture}]]></datasetParameterExpression>
+                            <datasetParameterExpression><![CDATA[$P{coutTotalMetreLineaireWithTva}]]></datasetParameterExpression>
                         </datasetParameter>
                         <datasetParameter name="total_ht">
                             <datasetParameterExpression><![CDATA[$P{coutTotalMetreLineaireHTVA}]]></datasetParameterExpression>

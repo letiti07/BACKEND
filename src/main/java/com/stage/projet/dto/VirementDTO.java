@@ -16,6 +16,8 @@ public class VirementDTO {
 
     private Long numeroCompteVirement;
 
+    private String nomCompteBancaire;
+
     private Date creationDate = new Date();
 
     private Date lastUpdateDate=new Date();
@@ -26,6 +28,7 @@ public class VirementDTO {
         return VirementDTO.builder()
                 .id(entity.getId())
                 .numeroCompteVirement(entity.getNumeroCompteVirement())
+                .nomCompteBancaire(entity.getNomCompteBancaire())
                 .creationDate(entity.getCreationDate())
                 .lastUpdateDate(entity.getLastUpdateDate())
                 .build();
@@ -36,6 +39,7 @@ public class VirementDTO {
         Virement virement = new Virement();
         virement.setId(dto.getId());
         virement.setNumeroCompteVirement(dto.getNumeroCompteVirement());
+        virement.setNomCompteBancaire(dto.getNomCompteBancaire());
 
         return virement;
     }

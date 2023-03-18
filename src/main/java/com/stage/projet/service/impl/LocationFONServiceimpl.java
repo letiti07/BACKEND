@@ -85,10 +85,10 @@ public class LocationFONServiceimpl implements LocationFONService {
         LocationFON save=LocationFONDTO.toEntity(locationFONDTO);
         //la liste des liaisons reçues
        List<LiaisonFONDTO> liaisonFONDTOS=locationFONDTO.getLiaisonfons();
-        log.info(String.valueOf(liaisonFONDTOS));
+      //  log.info(String.valueOf(liaisonFONDTOS));
         if(liaisonFONDTOS!=null) {
          liaisonFONDTOS.forEach(element -> {
-        log.info(String.valueOf(element));
+      //  log.info(String.valueOf(element));
         element.setLocationFONDTO(locationFONDTO);
         this.liaisonFONService.update(element.getId(), element);
     });
@@ -132,14 +132,14 @@ public class LocationFONServiceimpl implements LocationFONService {
     public double getFraisHebergementTotalWithTva(Integer IdLocation,Integer idFacture){
        double FraisHebergementTotalHT;
         LocationFONDTO locationFONDTO = this.findById(IdLocation);
-        log.info(String.valueOf(locationFONDTO));
+      //  log.info(String.valueOf(locationFONDTO));
         FactureFONDTO factureFONDTO=this.factureFONService.findById(idFacture);
-        log.info(String.valueOf(factureFONDTO));
+      //  log.info(String.valueOf(factureFONDTO));
         TvaDTO tvaDTO=factureFONDTO.getTvaDTO();
-        log.info(String.valueOf(tvaDTO));
+      //  log.info(String.valueOf(tvaDTO));
         double fraisHebergementTotal = this.getFraisHebergementTotalHTVA((locationFONDTO.getId()));
         FraisHebergementTotalHT = fraisHebergementTotal * tvaDTO.getTva();
-        log.info(String.valueOf(FraisHebergementTotalHT));
+      //  log.info(String.valueOf(FraisHebergementTotalHT));
 
         return FraisHebergementTotalHT;
     }
@@ -167,14 +167,14 @@ public class LocationFONServiceimpl implements LocationFONService {
     public double getPrixTotalMetreLineaireWithTVA(Integer idLocation,Integer idFacture){
         double CoutMetreLineaireTotalHT;
         LocationFONDTO locationFONDTO = this.findById(idLocation);
-        log.info(String.valueOf(locationFONDTO));
+      //  log.info(String.valueOf(locationFONDTO));
         FactureFONDTO factureFONDTO=this.factureFONService.findById(idFacture);
-        log.info(String.valueOf(factureFONDTO));
+      //  log.info(String.valueOf(factureFONDTO));
         TvaDTO tvaDTO=factureFONDTO.getTvaDTO();
-        log.info(String.valueOf(tvaDTO));
+      //  log.info(String.valueOf(tvaDTO));
         double PrixTotalMetreLineaire = this.getPrixTotalMetreLineaireHTVA((locationFONDTO.getId()));
         CoutMetreLineaireTotalHT = PrixTotalMetreLineaire * tvaDTO.getTva();
-        log.info(String.valueOf(CoutMetreLineaireTotalHT));
+     //   log.info(String.valueOf(CoutMetreLineaireTotalHT));
 
         return CoutMetreLineaireTotalHT;
     }
@@ -189,8 +189,8 @@ public class LocationFONServiceimpl implements LocationFONService {
 
     public double getPrixTotalMetreLineaireLiaison(Integer idLocation,Integer idLiaison){
         Double PrixTotalMetreLienaire;
-        log.info(String.valueOf(idLiaison));
-        log.info(String.valueOf(idLocation));
+     //   log.info(String.valueOf(idLiaison));
+      //  log.info(String.valueOf(idLocation));
         LocationFONDTO locationFONDTO =this.findById(idLocation);
         LiaisonFONDTO liaisonFONDTO=this.liaisonFONService.findById(idLiaison);
         PrixTotalMetreLienaire= liaisonFONDTO.getDistance() * locationFONDTO.getCoutMetreLineaire();
@@ -201,7 +201,7 @@ public class LocationFONServiceimpl implements LocationFONService {
 
 
     public void ValidateEnInstanceLocationFon(Integer id){
-        log.info(String.valueOf(id));
+      //  log.info(String.valueOf(id));
         Optional<LocationFON> entite = locationFONRepository.findById(id);
         String etat= "en instance";
         entite.get().setEtat(etat);
@@ -232,10 +232,10 @@ public class LocationFONServiceimpl implements LocationFONService {
 
     public DemandeDTO DemandeByIdLocationfon(Integer idLocationfon){
        Integer idDemandeFon= this.locationFONRepository.findIdDemandeOfLocationFon(idLocationfon);
-       log.info(String.valueOf(idDemandeFon));
+      // log.info(String.valueOf(idDemandeFon));
         Optional<Demande> demande = this.demandeRepository.findById(idDemandeFon);
         DemandeDTO demandeDTO= DemandeDTO.toDTO(demande.get());
-        log.info(String.valueOf(demandeDTO));
+      //  log.info(String.valueOf(demandeDTO));
         return demandeDTO;
     }
 

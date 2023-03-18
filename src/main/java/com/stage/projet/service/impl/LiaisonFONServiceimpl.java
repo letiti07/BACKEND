@@ -53,7 +53,7 @@ public class LiaisonFONServiceimpl implements LiaisonFONService {
     public LiaisonFONDTO create(LiaisonFONDTO liaisonFONDTO) {
 
         //recuperer la location
-        log.info(String.valueOf(liaisonFONDTO));
+       // log.info(String.valueOf(liaisonFONDTO));
         int id=liaisonFONDTO.getLocationFONDTO().getId();
         Optional<LocationFON> locationFON = locationFONRepository.findById(id);
         LiaisonFON save=LiaisonFONDTO.toEntity(liaisonFONDTO);
@@ -96,7 +96,7 @@ public class LiaisonFONServiceimpl implements LiaisonFONService {
             List<PointConnexionDTO> pointsConnexions = this.getPointsConnexion(id);
             LiaisonFONDTO liaisonFONDTO = LiaisonFONDTO.toDTO(liaisonFONRepository.findById(id).get());
             liaisonFONDTO.setPointconnexions(pointsConnexions);
-            log.info(String.valueOf(liaisonFONDTO));
+         //   log.info(String.valueOf(liaisonFONDTO));
             return liaisonFONDTO;
         }
         return null;
@@ -106,7 +106,7 @@ public class LiaisonFONServiceimpl implements LiaisonFONService {
     public void update(Integer identifiant, LiaisonFONDTO liaisonFONDTO) {
         //rcuperer la location et l'inserer
         int id = liaisonFONDTO.getLocationFONDTO().getId();
-        log.info(String.valueOf(id));
+     //   log.info(String.valueOf(id));
         Optional<LocationFON> locationFON = locationFONRepository.findById(id);
         LiaisonFON save=LiaisonFONDTO.toEntity(liaisonFONDTO);
         save.setLocationfon(locationFON.get());
@@ -131,7 +131,7 @@ public class LiaisonFONServiceimpl implements LiaisonFONService {
 
     public void addPointConnexion(Integer idLiaison, Integer idPointConnexion) {
 
-        log.info(String.valueOf(idLiaison),idPointConnexion);
+      //  log.info(String.valueOf(idLiaison),idPointConnexion);
         LiaisonFON liaisonFON= liaisonFONRepository.findById(idLiaison).orElseThrow(
                 ()->new RessourceNotFoundException()
         );

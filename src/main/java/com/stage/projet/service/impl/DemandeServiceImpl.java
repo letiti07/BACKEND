@@ -155,7 +155,7 @@ public class DemandeServiceImpl implements DemandeService {
 
 
     public ResponseEntity<byte[]> exportReportFacturefon(Integer idLocation, Integer idFacture) throws FileNotFoundException, JRException {
-        log.info(String.valueOf(idLocation),idFacture);
+       // log.info(String.valueOf(idLocation),idFacture);
         try {
             String path = "C:\\Users\\Fiacre\\Downloads\\uploads";
 
@@ -183,6 +183,8 @@ public class DemandeServiceImpl implements DemandeService {
             );
             Double CoutMetreLineaireTotalttc = this.locationFONService.getPrixTotalMetreLineaire(idLocation,idFacture);
             Double CoutMetreLineaireTotalHTVA = this.locationFONService.getPrixTotalMetreLineaireHTVA(idLocation);
+            Double CoutMetreLineaireTotalWithTVA= this.locationFONService.getPrixTotalMetreLineaireWithTVA(idLocation,idFacture);
+
 
       /*      log.info(String.valueOf(demandeurDTO));
             log.info("******************************************************************");
@@ -190,9 +192,9 @@ public class DemandeServiceImpl implements DemandeService {
             log.info("******************************************************************");
             log.info(String.valueOf(locationFONDTO));
        */     log.info("****************************liste des liaisons de facture**************************************");
-            log.info(liaisonFactureDTOList.toString());
-            log.info("****************************liste des liaisons**************************************");
-            log.info(liaisonFONList.toString());
+        //    log.info(liaisonFactureDTOList.toString());
+       //     log.info("****************************liste des liaisons**************************************");
+      //      log.info(liaisonFONList.toString());
      /*       log.info("******************************************************************");
             log.info(factureFONDTO.toString());
             log.info("******************************************************************");
@@ -214,7 +216,7 @@ public class DemandeServiceImpl implements DemandeService {
             parameters.put("bpDemandeur",demandeurDTO.getBoitePostale());
             parameters.put("emailDemandeur",demandeurDTO.getEmail());
             parameters.put("telDemandeur",demandeurDTO.getTel());
-            parameters.put("tvaFacture", factureFONDTO.getTvaDTO().getTva());
+          //  parameters.put("tvaFacture", factureFONDTO.getTvaDTO().getTva());
        //     parameters.put("periodeDebut", new SimpleDateFormat("dd/MM/yyyy").format(locationFONDTO.getPeriodeDebut()));
       //      parameters.put("periodeFin",locationFONDTO.getPeriodeFin());
 
@@ -223,10 +225,13 @@ public class DemandeServiceImpl implements DemandeService {
             parameters.put("ifuDemandeur",demandeurDTO.getIfu());
 
             //cout total htva
-            parameters.put("coutTotalMetreLineaireHTVA",new BigDecimal(CoutMetreLineaireTotalHTVA));
+            parameters.put("coutTotalMetreLineaireHTVA",(int) Math.round(CoutMetreLineaireTotalHTVA));
 
             //cout total ttc
-            parameters.put("coutTotalMetreLineaire",new BigDecimal(CoutMetreLineaireTotalttc));
+            parameters.put("coutTotalMetreLineaire",(int)Math.round (CoutMetreLineaireTotalttc));
+
+            //cout total with tva
+            parameters.put("coutTotalMetreLineaireWithTva", (int)Math.round(CoutMetreLineaireTotalWithTVA));
 
             //periode de facture
             parameters.put("periode",String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getDebutPeriode())) + " à " + String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(factureFONDTO.getFinPeriode())));
