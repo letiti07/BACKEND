@@ -32,6 +32,8 @@ public interface Constants {
 
     public static String ENDPOINT_CHECQUE= APP_ROOT + "/checque";
 
+    public static String ENDPOINT_ZONESE= APP_ROOT + "/zonese";
+
 
 
 

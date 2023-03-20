@@ -35,6 +35,9 @@ public class Demande extends AbstractEntity {
 	
 	@OneToOne(mappedBy ="demande")
 	private LocationFON locationFON;
+
+	@OneToOne(mappedBy ="demande")
+	private LocationSE locationSE;
 	
 	@ManyToOne
 	@JoinColumn(name = "idutilisateur")
