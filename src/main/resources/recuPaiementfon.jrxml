@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recuPaiement" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2b04dfab-023b-45eb-bd35-071f1b3c382f">
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+    <parameter name="nomDemandeur" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{nomDemandeur}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="numeroFacture" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{numeroFacture}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="dateEtablissement" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{dateEtablissement}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="montantTotalFacture" class="java.lang.Long">
+        <defaultValueExpression><![CDATA[$P{montantTotalFacture}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="montantEspece" class="java.lang.Long">
+        <defaultValueExpression><![CDATA[$P{montantEspece}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="modeReglement" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{modeReglement}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="statusFacture" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{statusFacture}]]></defaultValueExpression>
+    </parameter>
+    <parameter name="numeroRecu" class="java.lang.String">
+        <defaultValueExpression><![CDATA[$P{numeroRecu}]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="128" splitType="Stretch">
+            <staticText>
+                <reportElement x="3" y="0" width="176" height="18" forecolor="#000000" uuid="9248fdb7-6a25-49fe-a818-cdc4f0484550">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[EXPLOITATION : OUAGA]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="3" y="30" width="56" height="20" forecolor="#000000" uuid="fc7ecc2a-f72d-4288-b82e-5344d956671c">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[RECU DE :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="3" y="60" width="56" height="18" forecolor="#000000" uuid="8dc16dbe-4050-4880-8a33-1ba5cf1374fb">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Bottom">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[REF FACTURE :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="350" y="0" width="54" height="18" forecolor="#000000" uuid="37c82003-1480-40ab-b39a-33dbe6b5b826">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[RECU N° :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="624" y="7" width="30" height="23" forecolor="#000000" uuid="08557898-82ae-401c-8501-2755a865b778">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[DU]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="59" y="30" width="90" height="20" forecolor="#000000" uuid="03785dd5-3d8d-460d-950e-425d8998c6a8">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{nomDemandeur}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="59" y="60" width="90" height="18" forecolor="#000000" uuid="972de7bc-eccd-4102-8d5f-2267407d5300">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{numeroFacture}]]></textFieldExpression>
+            </textField>
+            <image>
+                <reportElement x="470" y="0" width="130" height="119" uuid="4ca64956-a0b3-4d66-9ec0-ffec2457f4cd"/>
+                <box topPadding="0" leftPadding="7" bottomPadding="0" rightPadding="0"/>
+                <imageExpression><![CDATA["C:/Users/Fiacre/Desktop/logo.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="161" y="91" width="106" height="20" forecolor="#000000" uuid="73cba918-7bbe-4dce-8174-bfc8fc819e08">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[status facture :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="267" y="89" width="140" height="21" forecolor="#000000" uuid="10c3603d-bc9d-48c6-a3c9-d2341426bc25">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{statusFacture}]]></textFieldExpression>
+            </textField>
+            <textField pattern="EEEEE dd MMMMM yyyy">
+                <reportElement x="654" y="7" width="138" height="23" uuid="203c5b33-6aae-40c1-9f0a-b0517f68463b"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{dateEtablissement}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="404" y="-1" width="90" height="20" forecolor="#000000" uuid="df15f842-0cbc-4b0b-a50c-f117e5aa9da8">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{numeroRecu}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="64" splitType="Stretch">
+            <line>
+                <reportElement x="3" y="30" width="797" height="3" uuid="d1f0f383-a464-4caf-ba7e-906aa811a954"/>
+            </line>
+            <staticText>
+                <reportElement x="256" y="5" width="350" height="23" forecolor="#000000" uuid="8805b8e5-46a0-4edf-a8cc-acd6206bc8bb">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="12" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[POUR REGLEMENT DE FACTURE DE LOCATION FON]]></text>
+            </staticText>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="85" splitType="Stretch">
+            <staticText>
+                <reportElement x="10" y="3" width="156" height="16" forecolor="#000000" uuid="43227d3b-b5ad-4642-aca9-0946bad1db52">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Bottom">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[MONTANT TOTAL FACTURE : ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="166" y="3" width="90" height="15" forecolor="#000000" uuid="48c9a9ca-7a5d-45f4-bf21-d3aa3c1e6af8">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{montantTotalFacture}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="448" y="0" width="100" height="18" forecolor="#000000" uuid="a08d1f3f-119e-4629-9d03-ae2b9328f9d1">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Bottom">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[MONTANT Espèce ............. ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="580" y="0" width="90" height="18" forecolor="#000000" uuid="675db616-e4f2-45a5-8a76-5d9a9fe4e5ad">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{montantEspece}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="449" y="37" width="96" height="19" forecolor="#000000" uuid="a0f63b15-cd3b-4827-bf84-2ce47628cdc7">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Bottom">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[NET PAYE.............]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="582" y="37" width="90" height="19" forecolor="#000000" uuid="4b7aa0e6-82cd-4c30-b2dd-20455e0709a7">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{montantTotalFacture}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="450" y="68" width="162" height="15" forecolor="#000000" uuid="a546e08c-b03c-4ba2-a942-3c354194bf97">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Left" verticalAlignment="Bottom">
+                    <font size="11" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[MODE DE REGLEMENT.....]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="612" y="68" width="90" height="15" forecolor="#000000" uuid="3bbc8967-2f42-4f58-bcd0-43054b2c4ec9">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{modeReglement}]]></textFieldExpression>
+            </textField>
+        </band>
+    </columnHeader>
+    <summary>
+        <band height="150" splitType="Stretch">
+            <staticText>
+                <reportElement x="130" y="120" width="482" height="23" forecolor="#000000" uuid="986a793e-5425-4299-9332-bd674650022c">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="16" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[Société Nationale d'Electricité du Burkina]]></text>
+            </staticText>
+        </band>
+    </summary>
+</jasperReport>

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="recuPaiementfon")
+@Table(name= "recuPaiementfon.jrxml")
 public class RecuPaiementFON  extends AbstractEntity{
 
 

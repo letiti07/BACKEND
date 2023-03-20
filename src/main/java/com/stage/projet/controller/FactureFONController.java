@@ -90,7 +90,7 @@ public class FactureFONController {
 
     @PutMapping("/validerAnnule/{id}")
     public void validerAnnule(@RequestBody FactureFONDTO factureFONDTO,@PathVariable("id") Integer identifiant){
-
+        log.info(String.valueOf(factureFONDTO));
         this.factureFONService.validerAnnule(factureFONDTO,identifiant);
     }
 

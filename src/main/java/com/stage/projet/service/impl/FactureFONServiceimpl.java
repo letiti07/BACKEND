@@ -144,7 +144,7 @@ public class FactureFONServiceimpl implements FactureFONService {
 
         factureFON.setCommentaires(factureFONDTO.getCommentaires());
 
-        log.info(String.valueOf(factureFON));
+      //  log.info(String.valueOf(factureFON));
 
         String etat="annulee";
         factureFON.setId(identifiant);

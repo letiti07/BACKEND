@@ -219,9 +219,9 @@ public class DemandeServiceImpl implements DemandeService {
             Double FraisHebergementTotalWithTVA= this.locationFONService.getFraisHebergementTotalWithTva(idLocation,idFacture);
 
             String FraisHebergementTotalLetters= (int)Math.round(FraisHebergementTotalttc) + " franc CFA";
-            String coutTotalMetreLineaireLetters = (int)Math.round(CoutMetreLineaireTotalttc) + " franc CFA";
+            String coutTotalMetreLineaireLetters = (Long)Math.round(CoutMetreLineaireTotalttc) + " franc CFA";
 
-            String montantTotalFacture= String.valueOf((int) Math.round(CoutMetreLineaireTotalttc + FraisHebergementTotalttc));
+            String montantTotalFacture= String.valueOf( Math.round(CoutMetreLineaireTotalttc + FraisHebergementTotalttc));
 
 
             //load file and compile it
@@ -243,11 +243,12 @@ public class DemandeServiceImpl implements DemandeService {
 
             parameters.put("idFacture", numeroFacture);
 
+            log.info(String.valueOf(CoutMetreLineaireTotalHTVA));
             //cout total htva
-            parameters.put("coutTotalMetreLineaireHTVA",(int) Math.round(CoutMetreLineaireTotalHTVA));
+            parameters.put("coutTotalMetreLineaireHTVA",(Long) Math.round(CoutMetreLineaireTotalHTVA));
 
             //cout total ttc
-            parameters.put("coutTotalMetreLineaire",(int)Math.round (CoutMetreLineaireTotalttc));
+            parameters.put("coutTotalMetreLineaire",(Long)Math.round (CoutMetreLineaireTotalttc));
 
             //cout total with tva
             parameters.put("coutTotalMetreLineaireWithTva", (int)Math.round(CoutMetreLineaireTotalWithTVA));
@@ -282,6 +283,95 @@ public class DemandeServiceImpl implements DemandeService {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
             headers.setContentDispositionFormData("filename", "facture de fibre optique noire.pdf");
+
+
+            return new ResponseEntity<byte[]>(JasperExportManager.exportReportToPdf(jasperPrint), headers, HttpStatus.OK);
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<byte[]> exportReportRecuPaiementfon(Integer idLocation, Integer idFacture) throws FileNotFoundException, JRException {
+        try {
+            String path = "C:\\Users\\Fiacre\\Downloads\\uploads";
+
+            LocationFONDTO locationFONDTO = this.locationFONService.findById(idLocation);
+            FactureFONDTO factureFONDTO = this.factureFONService.findById(idFacture);
+            String numeroFacture= "2023-00"+factureFONDTO.getId() ;
+            VirementDTO virementDTO = factureFONDTO.getVirementDTO();
+            ChecqueDTO checqueDTO = factureFONDTO.getChecqueDTO();
+            Date dateEtablissement= new Date();
+            String numeroRecu="";
+            String modeReglement= "";
+            String statusFacture= "";
+            if(factureFONDTO.getEtat().equals("annulee")){
+                statusFacture= "ANNULE" ;
+            }
+            if(factureFONDTO.getEtat().equals("payee")){
+                statusFacture= "PAYEE";
+            }
+
+                if(virementDTO != null){
+
+                    numeroRecu = factureFONDTO.getVirementDTO().getId() + "/0001";
+                    modeReglement= "VIREMENT" ;
+                    log.info(modeReglement);
+
+                }
+                if(checqueDTO != null){
+                    numeroRecu = factureFONDTO.getChecqueDTO().getId() + "/001";
+                    modeReglement= "CHECQUE" ;
+                    log.info(modeReglement);
+
+                }
+
+
+            log.info(String.valueOf(factureFONDTO));
+            log.info(modeReglement);
+            log.info(String.valueOf(virementDTO));
+            DemandeDTO demandeDTO = this.locationFONService.DemandeByIdLocationfon(idLocation);
+            DemandeurDTO demandeurDTO = demandeDTO.getDemandeurDTO();
+
+
+
+            Double FraisHebergementTotalttc = this.locationFONService.getFraisHebergementTotal(idLocation,idFacture);
+            Double CoutMetreLineaireTotalttc = this.locationFONService.getPrixTotalMetreLineaire(idLocation,idFacture);
+            Long montantTotalFacture= Math.round(CoutMetreLineaireTotalttc + FraisHebergementTotalttc);
+
+
+            //load file and compile it
+            File file = ResourceUtils.getFile("classpath:recuPaiementfon.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+            Map<String, Object> parameters = new HashMap<>();
+
+            //elements à droite dans l'entete
+            parameters.put("nomDemandeur", demandeurDTO.getNom());
+
+
+            parameters.put("numeroFacture", numeroFacture);
+
+            //cout montant total Facture
+            parameters.put("montantTotalFacture",montantTotalFacture);
+
+            parameters.put("montantEspece",montantTotalFacture);
+
+            parameters.put("statusFacture",statusFacture);
+
+            parameters.put("modeReglement",modeReglement);
+
+            parameters.put("dateEtablissement", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dateEtablissement));
+
+            parameters.put("numeroRecu", numeroRecu);
+
+
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,new JREmptyDataSource());
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("filename", "reçu de paiement de fibre optique noire.pdf");
 
 
             return new ResponseEntity<byte[]>(JasperExportManager.exportReportToPdf(jasperPrint), headers, HttpStatus.OK);

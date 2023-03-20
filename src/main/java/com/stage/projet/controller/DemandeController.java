@@ -91,6 +91,11 @@ public class DemandeController {
         return demandeService.exportReportFacturefon(idLocation,idFacture);
     }
 
+    @GetMapping("/locationfon/{idLocation}/facturefon/{idFacture}/recuPaiementReport")
+    public ResponseEntity<byte[]> exportReportRecuPaiementfon(@PathVariable("idLocation") Integer idLocation,@PathVariable("idFacture") Integer idFacture) throws FileNotFoundException, JRException{
+        return demandeService.exportReportRecuPaiementfon(idLocation,idFacture);
+    }
+
 
     
 
