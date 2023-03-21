@@ -322,7 +322,7 @@
                 <image>
                     <reportElement x="290" y="4" width="89" height="72" uuid="8571d22f-6d9b-4f9b-9165-071d3df65ffd"/>
                     <box topPadding="0" leftPadding="7" bottomPadding="0" rightPadding="0"/>
-                    <imageExpression><![CDATA["C:/Users/Fiacre/Desktop/logo.png"]]></imageExpression>
+                    <imageExpression><![CDATA["logo.png"]]></imageExpression>
                 </image>
                 <staticText>
                     <reportElement style="Table_TD" x="187" y="100" width="262" height="16" forecolor="#000000" backcolor="rgba(255, 255, 255, 0.0)" uuid="3ffad9d9-1904-4486-96b1-37d23b1bf7d0">

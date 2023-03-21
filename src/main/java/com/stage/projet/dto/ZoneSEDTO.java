@@ -26,7 +26,7 @@ public class ZoneSEDTO {
     private Integer nbrePoteauxLoues;
 
 
-    private LocationSEDTO locationSEDTO;
+  //  private LocationSEDTO locationSEDTO;
 
 
     private Date creationDate = new Date();
@@ -39,7 +39,8 @@ public class ZoneSEDTO {
         return ZoneSEDTO.builder()
                 .id(entity.getId())
                 .nom(entity.getNom())
-                .locationSEDTO(LocationSEDTO.toDTO(entity.getLocationse()))
+                .nbrePoteauxLoues(entity.getNbrePoteauxLoues())
+             //   .locationSEDTO(LocationSEDTO.toDTO(entity.getLocationse()))
                 .creationDate(entity.getCreationDate())
                 .lastUpdateDate(entity.getLastUpdateDate())
                 .build();

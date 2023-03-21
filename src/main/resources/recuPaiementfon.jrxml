@@ -138,7 +138,7 @@
             <image>
                 <reportElement x="470" y="0" width="130" height="119" uuid="4ca64956-a0b3-4d66-9ec0-ffec2457f4cd"/>
                 <box topPadding="0" leftPadding="7" bottomPadding="0" rightPadding="0"/>
-                <imageExpression><![CDATA["C:/Users/Fiacre/Desktop/logo.png"]]></imageExpression>
+                <imageExpression><![CDATA["logo.png"]]></imageExpression>
             </image>
             <staticText>
                 <reportElement x="161" y="91" width="106" height="20" forecolor="#000000" uuid="73cba918-7bbe-4dce-8174-bfc8fc819e08">

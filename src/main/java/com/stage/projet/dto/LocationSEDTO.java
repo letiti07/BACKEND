@@ -43,6 +43,12 @@ public class LocationSEDTO {
 
     private DemandeDTO demande;
 
+
+    private Date creationDate = new Date();
+
+    private Date lastUpdateDate=new Date();
+
+
     public static LocationSEDTO toDTO(LocationSE entity){
         if (entity == null) return null;
 
@@ -53,6 +59,8 @@ public class LocationSEDTO {
                 .duree(entity.getDuree())
                 .coutLocationUnitaire(entity.getCoutLocationUnitaire())
                 .etat(entity.getEtat())
+                .creationDate(entity.getCreationDate())
+                .lastUpdateDate(entity.getLastUpdateDate())
                 .build();
     }
 
@@ -65,7 +73,7 @@ public class LocationSEDTO {
         locationSE.setDuree(dto.getDuree());
         locationSE.setCoutLocationUnitaire(dto.getCoutLocationUnitaire());
         locationSE.setEtat(dto.getEtat());
-        locationSE.setDemande(DemandeDTO.toEntity(dto.getDemande()));
+      //  locationSE.setDemande(DemandeDTO.toEntity(dto.getDemande()));
 
         return locationSE;
     }
