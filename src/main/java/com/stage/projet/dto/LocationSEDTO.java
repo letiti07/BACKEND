@@ -41,7 +41,7 @@ public class LocationSEDTO {
     private List<ZoneSEDTO> zones;
 
 
-    private DemandeDTO demande;
+    private DemandeDTO demandeDTO;
 
 
     private Date creationDate = new Date();
@@ -73,7 +73,7 @@ public class LocationSEDTO {
         locationSE.setDuree(dto.getDuree());
         locationSE.setCoutLocationUnitaire(dto.getCoutLocationUnitaire());
         locationSE.setEtat(dto.getEtat());
-      //  locationSE.setDemande(DemandeDTO.toEntity(dto.getDemande()));
+        locationSE.setDemande(DemandeDTO.toEntity(dto.getDemandeDTO()));
 
         return locationSE;
     }

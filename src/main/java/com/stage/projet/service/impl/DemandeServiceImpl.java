@@ -8,9 +8,11 @@ import com.stage.projet.model.LocationFON;
 import com.stage.projet.repository.DemandeRepository;
 import com.stage.projet.repository.DemandeurRepository;
 import com.stage.projet.repository.LocationFONRepository;
+import com.stage.projet.repository.LocationSERepository;
 import com.stage.projet.service.DemandeService;
 import com.stage.projet.service.FactureFONService;
 import com.stage.projet.service.LocationFONService;
+import com.stage.projet.service.LocationSEService;
 import com.sun.tools.jconsole.JConsoleContext;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
@@ -38,18 +40,25 @@ public class DemandeServiceImpl implements DemandeService {
     private DemandeRepository demandeRepository;
     private LocationFONRepository locationFONRepository;
 
+    private LocationSERepository locationSERepository;
+
     private DemandeService demandeService;
 
     private FactureFONService factureFONService;
 
     private LocationFONService locationFONService;
 
+    private LocationSEService locationSEService;
+
     public DemandeServiceImpl(DemandeRepository demandeRepository, LocationFONRepository locationFONRepository,
-                              LocationFONService locationFONService,FactureFONService factureFONService) {
+                              LocationFONService locationFONService,FactureFONService factureFONService,
+                              LocationSEService locationSEService, LocationSERepository locationSERepository) {
         this.demandeRepository = demandeRepository;
         this.locationFONRepository = locationFONRepository;
         this.locationFONService=locationFONService;
         this.factureFONService=factureFONService;
+        this.locationSERepository= locationSERepository;
+        this.locationSEService = locationSEService;
     }
 
     @Override
@@ -87,6 +96,18 @@ public class DemandeServiceImpl implements DemandeService {
                     demandeDTO.setLocationFONDTO(byId);
                 }
             }
+
+            if (demandeDTO.getLocationSEDTO() != null) {
+                log.info(String.valueOf(3));
+                LocationSEDTO locationSEDTO = demandeDTO.getLocationSEDTO();
+                //si cette location existe bel et bien dans la BDD
+                LocationSEDTO byId1 = this.locationSEService.findById(locationSEDTO.getId());
+                if (byId1 != null) {
+                    log.info(String.valueOf(3));
+                    demandeDTO.setLocationSEDTO(byId1);
+                }
+            }
+
             return demandeDTO;
         }
         return null;

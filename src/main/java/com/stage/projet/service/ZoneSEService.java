@@ -14,4 +14,6 @@ public interface ZoneSEService {
     List<ZoneSEDTO> findAll();
 
     ZoneSEDTO create(ZoneSEDTO zoneSEDTO);
+
+    List<ZoneSEDTO> findzonesOfLocation(Integer identifiant);
 }

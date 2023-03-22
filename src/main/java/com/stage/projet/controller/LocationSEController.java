@@ -28,7 +28,9 @@ public class LocationSEController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public LocationSEDTO create(@RequestBody LocationSEDTO locationSEDTO){
+       // log.info(String.valueOf(locationSEDTO));
         return this.locationSEService.create(locationSEDTO);
+
     }
 
     @GetMapping
@@ -49,6 +51,7 @@ public class LocationSEController {
     @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
     public void update(@PathVariable("id") Integer identifiant, @RequestBody LocationSEDTO locationSEDTO) {
+     //   log.info(String.valueOf(locationSEDTO));
         if(locationSEService.findById(identifiant) == null) {
             throw new RessourceNotFoundException();
         }

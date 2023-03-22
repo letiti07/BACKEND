@@ -26,7 +26,7 @@ public class ZoneSEDTO {
     private Integer nbrePoteauxLoues;
 
 
-  //  private LocationSEDTO locationSEDTO;
+     private LocationSEDTO locationSEDTO;
 
 
     private Date creationDate = new Date();

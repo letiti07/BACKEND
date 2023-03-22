@@ -1,12 +1,14 @@
 package com.stage.projet.service.impl;
 
-import com.stage.projet.dto.LocationSEDTO;
-import com.stage.projet.dto.ZoneSEDTO;
+import com.stage.projet.dto.*;
+import com.stage.projet.model.LocationFON;
 import com.stage.projet.model.LocationSE;
 import com.stage.projet.model.ZoneSE;
 import com.stage.projet.repository.LocationSERepository;
+import com.stage.projet.repository.ZoneSERepository;
 import com.stage.projet.service.LocationFONService;
 import com.stage.projet.service.LocationSEService;
+import com.stage.projet.service.ZoneSEService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +21,26 @@ public class LocationSEServiceimpl implements LocationSEService {
 
     LocationSERepository locationSERepository;
 
-    public LocationSEServiceimpl(LocationSERepository locationSERepository) {
+    ZoneSEService zoneSEService;
+
+    public LocationSEServiceimpl(LocationSERepository locationSERepository , ZoneSEService zoneSEService) {
         this.locationSERepository = locationSERepository;
+        this.zoneSEService =  zoneSEService;
     }
 
     @Override
     public LocationSEDTO create(LocationSEDTO locationSEDTO) {
-        LocationSE save;
-        save = locationSERepository.save(LocationSEDTO.toEntity(locationSEDTO));
-        return LocationSEDTO.toDTO(save);
+        LocationSE save= locationSERepository.save(LocationSEDTO.toEntity(locationSEDTO));
+
+        List<ZoneSEDTO> zoneSEDTOList = locationSEDTO.getZones();
+
+                zoneSEDTOList.forEach(element->{
+                    element.setLocationSEDTO(LocationSEDTO.toDTO(save));
+                    this.zoneSEService.create(element);
+                });
+
+       return LocationSEDTO.toDTO(save);
+
 
     }
 
@@ -47,21 +60,45 @@ public class LocationSEServiceimpl implements LocationSEService {
     }
 
     @Override
-    public LocationSEDTO findById(Integer id) {
-        if(locationSERepository.findById(id).isPresent()){
-            LocationSEDTO locationSEDTO = LocationSEDTO.toDTO(locationSERepository.findById(id).get());
-            return locationSEDTO;
+    public LocationSEDTO findById(Integer identifiant) {
+
+        if (locationSERepository.findById(identifiant).isPresent()) {
+            List<ZoneSEDTO> zoneSEDTOList = this.getZones(identifiant);
+          //  List<FactureFONDTO> facturefons=this.getFactureFons(identifiant);
+
+            LocationSEDTO locationSE = LocationSEDTO.toDTO(locationSERepository.findById(identifiant).get());
+            locationSE.setZones(zoneSEDTOList);
+          //  locationSE.setFacturefons(facturefons);
+            return locationSE;
+
         }
+
         return null;
+    }
+
+    public List<ZoneSEDTO> getZones(Integer idLocation) {
+        List<ZoneSEDTO> zonesOfLocation = this.zoneSEService.findzonesOfLocation(idLocation);
+        return zonesOfLocation;
     }
 
     @Override
     public void update(Integer identifiant, LocationSEDTO locationSEDTO) {
+        //log.info(String.valueOf(locationSEDTO));
+        LocationSE save = LocationSEDTO.toEntity(locationSEDTO);
+        //la liste des zones reçues
+        List<ZoneSEDTO> zoneSEDTOList = locationSEDTO.getZones();
+        //  log.info(String.valueOf(liaisonFONDTOS));
+        if (zoneSEDTOList != null) {
+            zoneSEDTOList.forEach(element -> {
+                //  log.info(String.valueOf(element));
+                element.setLocationSEDTO(locationSEDTO);
+                this.zoneSEService.update(element.getId(), element);
+            });
 
-        locationSEDTO.setId(identifiant);
-        LocationSE save =  locationSERepository.save(LocationSEDTO.toEntity(locationSEDTO));
-        log.info(String.valueOf(save));
-       // locationSERepository.save(save);
+        }
+      //  log.info(String.valueOf(save));
+        save.setId(identifiant);
+        locationSERepository.save(save);
     }
 
     @Override

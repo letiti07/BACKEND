@@ -28,6 +28,8 @@ public class DemandeDTO {
 
 	private LocationFONDTO locationFONDTO;
 
+	private LocationSEDTO locationSEDTO;
+
 	private Utilisateur utilisateur;
 
 	private Date creationDate = new Date();
@@ -46,6 +48,7 @@ public class DemandeDTO {
 				.commentaire(entity.getCommentaire())
 				.demandeurDTO(DemandeurDTO.toDTO(entity.getDemandeur()))
 				.locationFONDTO(LocationFONDTO.toDTO(entity.getLocationFON()))
+				.locationSEDTO(LocationSEDTO.toDTO(entity.getLocationSE()))
 				.creationDate(entity.getCreationDate())
 				.lastUpdateDate(entity.getLastUpdateDate())
 				.build();
