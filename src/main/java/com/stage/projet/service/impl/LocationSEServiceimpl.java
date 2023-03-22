@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -104,5 +105,28 @@ public class LocationSEServiceimpl implements LocationSEService {
     @Override
     public void deleteById(Integer id) {
         this.locationSERepository.deleteById(id);
+    }
+    @Override
+    public void ValidateEnInstanceLocationSe(Integer id){
+        //  log.info(String.valueOf(id));
+        Optional<LocationSE> entite = locationSERepository.findById(id);
+        String etat= "en instance";
+        entite.get().setEtat(etat);
+        locationSERepository.save(entite.get());
+    }
+    @Override
+    public void ValidateValidéLocationSe(Integer id) {
+        Optional<LocationSE> entite = locationSERepository.findById(id);
+        String etat= "validé";
+        entite.get().setEtat(etat);
+        locationSERepository.save(entite.get());
+    }
+
+    @Override
+    public void ValidateNonValidéLocationSe(Integer id) {
+        Optional<LocationSE> entite = locationSERepository.findById(id);
+        String etat= "non-validé";
+        entite.get().setEtat(etat);
+        locationSERepository.save(entite.get());
     }
 }

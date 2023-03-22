@@ -14,4 +14,10 @@ public interface LocationSEService {
     void update(Integer identifiant, LocationSEDTO locationSEDTO);
 
     void deleteById(Integer id);
+
+    void ValidateEnInstanceLocationSe(Integer id);
+
+    void ValidateValidéLocationSe(Integer id);
+
+    void ValidateNonValidéLocationSe(Integer id);
 }

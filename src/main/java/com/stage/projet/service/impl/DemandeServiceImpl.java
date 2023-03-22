@@ -76,6 +76,11 @@ public class DemandeServiceImpl implements DemandeService {
                 element.setLocationFONDTO(byId);
             }
 
+            if(element.getLocationSEDTO()!=null){
+                LocationSEDTO byId= this.locationSEService.findById(element.getLocationSEDTO().getId());
+                element.setLocationSEDTO(byId);
+            }
+
         });
         return demandeDTOS;
     }
@@ -134,18 +139,20 @@ public class DemandeServiceImpl implements DemandeService {
         demandeDTOS.forEach(element->{
         //    log.info(String.valueOf(element));
 
-            if( element.getLocationFONDTO()!=null &&
+            if( (element.getLocationFONDTO()!=null &&
                     (element.getLocationFONDTO().getEtat()==null || element.getLocationFONDTO().getEtat().equals("non-validé")) ||
-            element.getLocationFONDTO()==null){
+            element.getLocationFONDTO()==null) ){
 
-                listefinal.add(element);
+
+                    listefinal.add(element);
+
+
             }
         });
 
         return listefinal;
 
     }
-
 
 
     @Override

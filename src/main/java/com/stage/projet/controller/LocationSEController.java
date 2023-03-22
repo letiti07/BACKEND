@@ -65,4 +65,31 @@ public class LocationSEController {
 
     }
 
+    @GetMapping(value = "/validateEnInstance/{idLocation}")
+    public void ValidateEnInstanceLocationSE(@PathVariable("idLocation") Integer id){
+        log.info(String.valueOf(id));
+        if(locationSEService.findById(id)==null){
+            throw new RessourceNotFoundException();
+        }
+        this.locationSEService.ValidateEnInstanceLocationSe(id);
+
+    }
+
+    @GetMapping(value = "/validateValidé/{idLocation}")
+    public void ValidateValidéLocationSe(@PathVariable("idLocation") Integer id){
+        if(locationSEService.findById(id)==null){
+            throw new RessourceNotFoundException();
+        }
+        this.locationSEService.ValidateValidéLocationSe(id);
+    }
+
+    @GetMapping(value = "/validateNonValidé/{idLocation}")
+    public void ValidateNonValidéLocationSe(@PathVariable("idLocation") Integer id){
+        if(locationSEService.findById(id)==null){
+            throw new RessourceNotFoundException();
+        }
+        this.locationSEService.ValidateNonValidéLocationSe(id);
+    }
+
+
 }
