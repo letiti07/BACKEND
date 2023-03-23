@@ -38,6 +38,8 @@ public class FactureFONDTO {
 
     private LocationFONDTO locationFONDTO;
 
+    private LocationSEDTO locationSEDTO;
+
     private String commentaires;
 
     private VirementDTO virementDTO;
@@ -77,6 +79,7 @@ public class FactureFONDTO {
        factureFON.setTva(TvaDTO.toEntity(dto.getTvaDTO()));
        factureFON.setDuree(dto.getDuree());
        factureFON.setLocationfon(LocationFONDTO.toEntity(dto.getLocationFONDTO()));
+       factureFON.setLocationse(LocationSEDTO.toEntity(dto.getLocationSEDTO()));
        factureFON.setCommentaires(dto.getCommentaires());
        factureFON.setVirement(VirementDTO.toEntity(dto.getVirementDTO()));
        factureFON.setChecque(ChecqueDTO.toEntity(dto.getChecqueDTO()));

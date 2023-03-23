@@ -44,7 +44,7 @@ public class LocationFONDTO {
     private DemandeDTO demandeDTO;
 
 
-    //private List<FactureFON> facturefon;
+
 
 
 

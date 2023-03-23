@@ -41,4 +41,8 @@ public class LocationSE extends AbstractEntity{
     private Demande demande;
 
 
+    @OneToMany(mappedBy = "locationse")
+    private List<FactureFON> facturefons;
+
+
 }

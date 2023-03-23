@@ -1,5 +1,6 @@
 package com.stage.projet.service;
 
+import com.stage.projet.dto.DemandeDTO;
 import com.stage.projet.dto.LocationSEDTO;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface LocationSEService {
     void ValidateValidéLocationSe(Integer id);
 
     void ValidateNonValidéLocationSe(Integer id);
+
+    double getCoutTotalLocationHTVA(Integer IdLocation);
+
+    DemandeDTO DemandeByIdLocationse(Integer idLocation);
 }

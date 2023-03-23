@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface FactureFONRepository extends JpaRepository<FactureFON,Integer> {
     List<FactureFON> findAllByLocationfonId(Integer id);
+
+    List<FactureFON> findAllByLocationseId(Integer id);
 }

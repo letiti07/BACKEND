@@ -40,6 +40,8 @@ public class LocationSEDTO {
 
     private List<ZoneSEDTO> zones;
 
+    private List<FactureFONDTO> facturefons;
+
 
     private DemandeDTO demandeDTO;
 

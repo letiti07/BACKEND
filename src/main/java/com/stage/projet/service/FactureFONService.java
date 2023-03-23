@@ -25,4 +25,6 @@ public interface FactureFONService {
     public void validerAnnule(FactureFONDTO factureFONDTO,Integer identifiant);
 
     public void validerPaye(FactureFONDTO factureFONDTO,Integer identifiant);
+
+    List<FactureFONDTO> findFacturesesOfLocation(Integer identifiant);
 }

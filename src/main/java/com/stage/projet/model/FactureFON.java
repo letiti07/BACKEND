@@ -35,6 +35,10 @@ public class FactureFON  extends AbstractEntity{
 	@ManyToOne
 	@JoinColumn(name = "idlocationfon")
 	private LocationFON locationfon;
+
+	@ManyToOne
+	@JoinColumn(name = "idlocationse")
+	private LocationSE locationse;
 	
 	@OneToMany(mappedBy = "facturefon")
 	private List<RecuPaiementFON> recupaiementfon;

@@ -36,6 +36,8 @@ public class FactureFONServiceimpl implements FactureFONService {
 
     LocationFONRepository locationFONRepository;
 
+    LocationSERepository locationSERepository;
+
     DemandeRepository demandeRepository;
 
     TvaRepository tvaRepository;
@@ -45,12 +47,14 @@ public class FactureFONServiceimpl implements FactureFONService {
     ChecqueRepository checqueRepository;
 
     public FactureFONServiceimpl(FactureFONRepository factureFONRepository,LocationFONRepository locationFONRepository,
-                                 TvaRepository tvaRepository,VirementRepository virementRepository,ChecqueRepository checqueRepository) {
+                                 TvaRepository tvaRepository,VirementRepository virementRepository,ChecqueRepository checqueRepository,
+                                 LocationSERepository locationSERepository) {
         this.factureFONRepository = factureFONRepository;
         this.locationFONRepository= locationFONRepository;
         this.tvaRepository=tvaRepository;
         this.virementRepository=virementRepository;
         this.checqueRepository=checqueRepository;
+        this.locationSERepository=locationSERepository;
     }
 
     @Override
@@ -80,13 +84,21 @@ public class FactureFONServiceimpl implements FactureFONService {
 
     @Override
     public void update(Integer identifiant, FactureFONDTO factureFONDTO) {
-        int id=factureFONDTO.getLocationFONDTO().getId();
         int d1=factureFONDTO.getTvaDTO().getId();
-        log.info(String.valueOf(id));
-        Optional<LocationFON> locationFON = locationFONRepository.findById(id);
         Optional<Tva> tva = tvaRepository.findById(d1);
         FactureFON factureFON = FactureFONDTO.toEntity(factureFONDTO);
-        factureFON.setLocationfon(locationFON.get());
+        
+        if(factureFONDTO.getLocationFONDTO() != null) {
+            int id=factureFONDTO.getLocationFONDTO().getId();
+            Optional<LocationFON> locationFON = locationFONRepository.findById(id);
+            factureFON.setLocationfon(locationFON.get());
+        }
+        if(factureFONDTO.getLocationSEDTO() != null){
+            int id1=factureFONDTO.getLocationSEDTO().getId();
+            Optional<LocationSE> locationSE = locationSERepository.findById(id1);
+            factureFON.setLocationse(locationSE.get());
+        }
+
         factureFON.setTva(tva.get());
 
         factureFON.setId(identifiant);
@@ -104,6 +116,10 @@ public class FactureFONServiceimpl implements FactureFONService {
     @Override
     public List<FactureFONDTO>findFactureFonsOfLocation(Integer identifiant) {
         return this.factureFONRepository.findAllByLocationfonId(identifiant).stream().map(FactureFONDTO::toDTO).toList();
+    }
+
+    public List<FactureFONDTO> findFacturesesOfLocation(Integer identifiant){
+        return this.factureFONRepository.findAllByLocationseId(identifiant).stream().map(FactureFONDTO::toDTO).toList();
     }
 
     public void validerEnInstance(FactureFONDTO factureFONDTO,Integer identifiant) {
@@ -133,14 +149,23 @@ public class FactureFONServiceimpl implements FactureFONService {
 
     public void validerAnnule(FactureFONDTO factureFONDTO,Integer identifiant) {
 
-        int id=factureFONDTO.getLocationFONDTO().getId();
+
         int d1=factureFONDTO.getTvaDTO().getId();
-        log.info(String.valueOf(id));
-        Optional<LocationFON> locationFON = locationFONRepository.findById(id);
         Optional<Tva> tva = tvaRepository.findById(d1);
         FactureFON factureFON = FactureFONDTO.toEntity(factureFONDTO);
-        factureFON.setLocationfon(locationFON.get());
         factureFON.setTva(tva.get());
+
+        if(factureFONDTO.getLocationFONDTO() != null){
+            int id=factureFONDTO.getLocationFONDTO().getId();
+            Optional<LocationFON> locationFON = locationFONRepository.findById(id);
+            factureFON.setLocationfon(locationFON.get());
+        }
+        if(factureFONDTO.getLocationSEDTO() != null){
+            int id=factureFONDTO.getLocationSEDTO().getId();
+            Optional<LocationSE> locationSE = locationSERepository.findById(id);
+            factureFON.setLocationse(locationSE.get());
+        }
+
 
         factureFON.setCommentaires(factureFONDTO.getCommentaires());
 
@@ -156,16 +181,25 @@ public class FactureFONServiceimpl implements FactureFONService {
 
     public void validerPaye(FactureFONDTO factureFONDTO,Integer identifiant) {
 
-        log.info(String.valueOf(factureFONDTO.getVirementDTO()));
-        log.info(String.valueOf(factureFONDTO.getChecqueDTO()));
-        int id=factureFONDTO.getLocationFONDTO().getId();
         int d1=factureFONDTO.getTvaDTO().getId();
-        log.info(String.valueOf(id));
-        Optional<LocationFON> locationFON = locationFONRepository.findById(id);
         Optional<Tva> tva = tvaRepository.findById(d1);
         FactureFON factureFON = FactureFONDTO.toEntity(factureFONDTO);
-        factureFON.setLocationfon(locationFON.get());
+
         factureFON.setTva(tva.get());
+
+        log.info(String.valueOf(factureFONDTO.getVirementDTO()));
+        log.info(String.valueOf(factureFONDTO.getChecqueDTO()));
+
+        if(factureFONDTO.getLocationFONDTO() != null){
+            int id=factureFONDTO.getLocationFONDTO().getId();
+            Optional<LocationFON> locationFON = locationFONRepository.findById(id);
+            factureFON.setLocationfon(locationFON.get());
+        }
+        if(factureFONDTO.getLocationSEDTO() != null){
+            int id=factureFONDTO.getLocationSEDTO().getId();
+            Optional<LocationSE> locationSE = locationSERepository.findById(id);
+            factureFON.setLocationse(locationSE.get());
+        }
 
         if(factureFONDTO.getVirementDTO()!=null){
             VirementDTO virementDTO = factureFONDTO.getVirementDTO();

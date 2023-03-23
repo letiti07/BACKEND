@@ -1,5 +1,6 @@
 package com.stage.projet.controller;
 
+import com.stage.projet.dto.DemandeDTO;
 import com.stage.projet.dto.LocationSEDTO;
 import com.stage.projet.dto.ZoneSEDTO;
 import com.stage.projet.exception.RessourceNotFoundException;
@@ -89,6 +90,22 @@ public class LocationSEController {
             throw new RessourceNotFoundException();
         }
         this.locationSEService.ValidateNonValidéLocationSe(id);
+    }
+
+    @GetMapping(value = "/CoutLocationTotalHTVA/{idLocation}")
+    public double getCoutTotalLocationHTVA(@PathVariable("idLocation") Integer idLocation){
+        log.info(String.valueOf(idLocation));
+        if(this.locationSEService.findById(idLocation)==null){
+            throw new RessourceNotFoundException();
+        }
+        return this.locationSEService.getCoutTotalLocationHTVA(idLocation);
+    }
+
+
+
+    @GetMapping(value = "/DemandeOfLocationse/{idLocation}")
+    public DemandeDTO getDemandeByIdLocationSe(@PathVariable("idLocation") Integer idLocation){
+        return this.locationSEService.DemandeByIdLocationse(idLocation);
     }
 
 
