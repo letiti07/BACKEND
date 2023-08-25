@@ -15,8 +15,6 @@
     <description>Démo API Gestion des Infrastructures à Fibre Optique</description>
     <properties>
         <java.version>18</java.version>
-        <maven.compiler.target>3.9.4</maven.compiler.target>
-        <maven.compiler.source>3.9.4</maven.compiler.source>
     </properties>
     <dependencies>
         <dependency>
