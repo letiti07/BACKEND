@@ -1,7 +1,8 @@
-FROM openjdk:18
-ARG JAR_FILE=target/projet-0.0.1-SNAPSHOT.jar
+FROM  maven:3-eclipse-temurin-17-alpine as build
 WORKDIR /opt/app
-COPY ${JAR_FILE} app.jar
+COPY ./ /opt/app
+RUN mvn clean install -DskipTests
+
+FROM openjdk:18
+COPY --from=build /opt/app/target/*.jar app.jar
 ENTRYPOINT ["java","-Djava.awt.headless=true", "-jar", "app.jar"]
-
-
